@@ -18,6 +18,7 @@ from nltk import FreqDist, classify, NaiveBayesClassifier
 
 import re, string, random
 
+#remove uneccessary words like is, the, a to reduce noise
 def remove_noise(tweet_tokens, stop_words = ()):
 
     cleaned_tokens = []
@@ -41,22 +42,27 @@ def remove_noise(tweet_tokens, stop_words = ()):
             cleaned_tokens.append(token.lower())
     return cleaned_tokens
 
+#determine word density by compiling list of tweets into list of words
 def get_all_words(cleaned_tokens_list):
     for tokens in cleaned_tokens_list:
         for token in tokens:
             yield token
-
+#prepare data to be put into naives bayes model by turning tweets into
+ # python dictionary with words as keys and True as values which is needed for model
 def get_tweets_for_model(cleaned_tokens_list):
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)
 
 if __name__ == "__main__":
-
+    #import datasets to train the model
     positive_tweets = twitter_samples.strings('positive_tweets.json')
     negative_tweets = twitter_samples.strings('negative_tweets.json')
+    #tweets with no sentimetns
     text = twitter_samples.strings('tweets.20150430-223406.json')
+    #tokenize the tweets
     tweet_tokens = twitter_samples.tokenized('positive_tweets.json')[0]
 
+    #will help remove noise
     stop_words = stopwords.words('english')
 
     positive_tweet_tokens = twitter_samples.tokenized('positive_tweets.json')
@@ -73,9 +79,11 @@ if __name__ == "__main__":
 
     all_pos_words = get_all_words(positive_cleaned_tokens_list)
 
+    #get most common words
     freq_dist_pos = FreqDist(all_pos_words)
     print(freq_dist_pos.most_common(10))
 
+#split datset for training and testing model
     positive_tokens_for_model = get_tweets_for_model(positive_cleaned_tokens_list)
     negative_tokens_for_model = get_tweets_for_model(negative_cleaned_tokens_list)
 
@@ -92,8 +100,9 @@ if __name__ == "__main__":
     train_data = dataset[:7000]
     test_data = dataset[7000:]
 
+#build and test the model
     classifier = NaiveBayesClassifier.train(train_data)
-
+##########################THIS IS WHERE WE ADD OUR OWN DATA AND OUTPUTS, BELOW ARE JUST EXAMPLES OF WHAT CAN BE DONE
     print("Accuracy is:", classify.accuracy(classifier, test_data))
 
     print(classifier.show_most_informative_features(10))
