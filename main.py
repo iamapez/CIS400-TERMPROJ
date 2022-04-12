@@ -8,6 +8,7 @@ def print_hi(name):
 
 def main():
     print('hit main method')
+    print('new commit for codedeploy')
 
 
 # Press the green button in the gutter to run the script.
