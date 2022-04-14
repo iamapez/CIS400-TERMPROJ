@@ -1,3 +1,4 @@
+# Alexander C. Perez, acperez@syr.edu
 # this will serve as the main python file for the twitter api
 
 from bs4 import BeautifulSoup
