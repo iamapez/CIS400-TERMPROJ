@@ -25,6 +25,16 @@ class Candidate:
         self.isPartisan = None
         self.voteFor = None
         self.term = None
+        self.twitterusername = None
+        self.ID = None
+        self.data = None
+        self.screenName = None
+        self.name = None
+        self.location = None
+        self.description = None
+        self.followersCount = None
+        self.friendsCount = None
+        self.isVerified = None
 
     def __init__(self, row):
         self.dateOfElection = row[0]
@@ -48,6 +58,12 @@ class Candidate:
         self.isPartisan = row[22]
         self.voteFor = row[23]
         self.term = row[24]
+
+    def getTwitteruName(self):
+        self.twitterusername = None
+
+    def setTwitteruName(self, name):
+        self.twitterusername = name
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,

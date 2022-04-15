@@ -11,9 +11,10 @@ import os
 import pathlib
 import sys
 import parseCSV
+import twitterapi
 
 
-def main():
+def updateJSONData():
     # update the local program data
     response = parseCSV.getInfoandUpdateJSON()
     if response == 400:
@@ -21,6 +22,16 @@ def main():
     else:
         print('ERROR!')
         print(response)
+
+
+def main():
+    # updateJSONData()
+    apez_Authenticated = twitterapi.getAuthenticated()
+
+    firstScreenName = 'edmundyu1001'
+    testUser = twitterapi.get_user_profile(apez_Authenticated, firstScreenName)
+
+    print(1)
 
 
 if __name__ == "__main__":
