@@ -123,6 +123,11 @@ def oauth_login(key, secret, otoken, osecret):
     return twitter_api
 
 
+def getUserNameFromData(authed_api, name):
+    response = make_twitter_request(authed_api.users.search, q=name)
+    return response
+
+
 def getAuthenticated():
     apez = oauth_login(apez_consumerKey, apez_consumerSecret, apez_oauthtoken, apez_oauthsecret)
     # kyleM = oauth_login()

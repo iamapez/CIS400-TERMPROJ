@@ -28,7 +28,7 @@ def getInfoandUpdateJSON():
                     line_count += 1
                 else:
                     # print(f'\t{row[0]} email, {row[1]} canodacydate, party contest {row[2]}.')
-                    tmpCandidate = Candidate(row)
+                    tmpCandidate = setFromRow(row)
                     listOfCandidateObjects.append(tmpCandidate)
                     line_count += 1
 
@@ -39,7 +39,7 @@ def getInfoandUpdateJSON():
             for item in listOfCandidateObjects:
                 outfile.write(item.toJSON())
 
-        return 400
+        return listOfCandidateObjects
 
     except Exception as e:
         return e

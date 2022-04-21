@@ -2,41 +2,49 @@
 import json
 
 
-class Candidate:
-    def __init__(self):
-        self.dateOfElection = None
-        self.county = None
-        self.contestName = None
-        self.nameOnBallot = None
-        self.firstName = None
-        self.lastName = None
-        self.nickName = None
-        self.streetAddress = None
-        self.city = None
-        self.state = None
-        self.zipCode = None
-        self.businessPhone = None
-        self.email = None
-        self.candidacyDT = None
-        self.partyContest = None
-        self.partyCandidate = None
-        self.isUnexpired = None
-        self.hasPrimary = None
-        self.isPartisan = None
-        self.voteFor = None
-        self.term = None
-        self.twitterusername = None
-        self.ID = None
-        self.data = None
-        self.screenName = None
-        self.name = None
-        self.location = None
-        self.description = None
-        self.followersCount = None
-        self.friendsCount = None
-        self.isVerified = None
+class setFromRow:
+    def __init__(self, dateOfElection=None, county=None, contestName=None,
+                 nameOnBallot=None, firstName=None, lastName=None, nickName=None,
+                 streetAddress=None, city=None, state=None, zipCode=None,
+                 businessPhone=None, email=None, candidacyDT=None,
+                 partyContest=None, partyCandidate=None, isUnexpired=None,
+                 hasPrimary=None, isPartisan=None, voteFor=None,
+                 term=None, twitterusername=None, ID=None, data=None, screenName=None,
+                 name=None, location=None, description=None, followersCount=None,
+                 friendsCount=None, isVerified=None):
+        self.dateOfElection = dateOfElection
+        self.county = county
+        self.contestName = contestName
+        self.nameOnBallot = nameOnBallot
+        self.firstName = firstName
+        self.lastName = lastName
+        self.nickName = nickName
+        self.streetAddress = streetAddress
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+        self.businessPhone = businessPhone
+        self.email = email
+        self.candidacyDT = candidacyDT
+        self.partyContest = partyContest
+        self.partyCandidate = partyCandidate
+        self.isUnexpired = isUnexpired
+        self.hasPrimary = hasPrimary
+        self.isPartisan = isPartisan
+        self.voteFor = voteFor
+        self.term = term
+        self.twitterusername = twitterusername
+        self.ID = ID
+        self.data = data
+        self.screenName = screenName
+        self.name = name
+        self.location = location
+        self.description = description
+        self.followersCount = followersCount
+        self.friendsCount = friendsCount
+        self.isVerified = isVerified
 
-    def __init__(self, row):
+    def setFromRow(self, row):
         self.dateOfElection = row[0]
         self.county = row[1]
         self.contestName = row[2]
