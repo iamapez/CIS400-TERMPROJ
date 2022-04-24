@@ -1,0 +1,9 @@
+{
+    "name": "Marco Rubio",
+    "party": "Republican",
+    "state": "Florida",
+    "tweets": [
+        "test tweet here"
+    ],
+    "twitterusername": null
+}

@@ -1,0 +1,9 @@
+{
+    "name": "John Fetterman",
+    "party": "Democrat",
+    "state": "Pennsylvania",
+    "tweets": [
+        "test tweet here"
+    ],
+    "twitterusername": null
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Ron Johnson",
+    "party": "Republican",
+    "state": "Wisconsin",
+    "tweets": [
+        "test tweet here"
+    ],
+    "twitterusername": null
+}

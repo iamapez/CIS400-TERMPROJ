@@ -2,12 +2,30 @@
 # Backend class to convert election data from assets/ and convert it to python objects
 # we serialize the python objects then store them in a json file in assets/
 
-from Canidate import *
+from Candidate import *
 import csv
 import os
 import os.path
 import shutil
 import json
+
+
+def outputObjectsToJSONfile(listOfCandidateObjects):
+    """
+    Takes in a list of candidate objects and writes it to json
+    :param listOfCandidateObjects:
+    :return: true or false
+    """
+
+    try:
+        d = os.getcwd()
+        pathToWritingCSV = 'assets/CandidateDataCLEANED.json'
+        with open(pathToWritingCSV, 'w') as outfile:
+            for item in listOfCandidateObjects:
+                outfile.write(item.toJSON())
+    except Exception as e:
+        print('exception here!')
+        exit(-1)
 
 
 def getInfoandUpdateJSON():
