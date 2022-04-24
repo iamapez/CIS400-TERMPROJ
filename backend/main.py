@@ -134,7 +134,7 @@ def main():
     # else:
     #     pass
 
-    newObjects = refreshOurObjects()
+    CandidateObjects = refreshOurObjects()
     print()
 
 
