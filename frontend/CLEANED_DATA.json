@@ -1,0 +1,44 @@
+{
+    "states": [
+        {
+            "state_name": "Arizona",
+            "democrat":  "Mark Kelly",
+            "republican": "Mark Bronvich"
+        },
+        {
+            "state_name": "Georgia",
+            "democrat": "Raphael Warnock",
+            "republican": "Herschel Walker"
+        },
+        {
+            "state_name": "Florida",
+            "democrat": "Val Demings",
+            "republican": "Marco Rubio"
+        },
+        {
+            "state_name": "Nevada",
+            "democrat": "Catherine Cortez Masto",
+            "republican": "Sam Brown"
+        },
+        {
+            "state_name": "Wisconsin",
+            "democrat": "Mandela Barnes",
+            "republican": "Ron Johnson"
+        },
+        {
+            "state_name": "North Carolina",
+            "democrat": "Cheri Beasley",
+            "republican": "Ted Budd"
+        },
+        {
+            "state_name": "Pennsylvania",
+            "democrat": "John Fetterman",
+            "republican": "David Mccormick"
+        },
+        {
+            "state_name": "Ohio",
+            "democrat": "Tim Ryan",
+            "republican": "Josh Mandel"
+        }
+    ]
+}
