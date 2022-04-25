@@ -20,6 +20,12 @@ class Constants:
     Ohio = 'Ohio'
     Democrat = 'Democrat'
     Republican = 'Republican'
+    Economy = 'Economy'
+    Coronavirus = 'Coronavirus'
+    Healthcare = 'Healthcare'
+    National_Security = 'National Security'
+    Climate_Change = 'Climate Change'
+
 
 
 def refreshOurObjects():

@@ -1,5 +1,7 @@
 # Kyle Maiorana
+# Alexander Perez, acperez@syr.edu
 # Streamlit Frontend
+import os
 
 from cgi import test
 from email import header
