@@ -107,6 +107,7 @@ def populateDataFromJSON():
     return listOfObjects
 
 
+
 def main():
     """
     Entry point for our backend code.
@@ -119,23 +120,8 @@ def main():
 
     CandidateObjects = populateDataFromJSON()
 
-    # only run when we need to update ALL candidate objects
-    # Generate our json files in assets/CandidateData/
-    # if outputCandidatesToJSON(CandidateObjects) == -1:
-    #     exit(-1)
-    # else:
-    #     pass
-
-
-    # when we made changes to one candidate data call:
-    #
-    # if updateCandidateJSON(CandidateObjects[0]) == -1:
-    #     exit(-1)
-    # else:
-    #     pass
-
-    CandidateObjects = refreshOurObjects()
-    print()
+    while 1:
+        CandidateObjects = refreshOurObjects()
 
 
     exit(1)
@@ -143,3 +129,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+    # only run when we need to update ALL candidate objects
+    # Generate our json files in assets/CandidateData/
+    # if outputCandidatesToJSON(CandidateObjects) == -1:
+    #     exit(-1)
+    # else:
+    #     pass
+
+    # when we made changes to one candidate data call:
+    #
+    # if updateCandidateJSON(CandidateObjects[0]) == -1:
+    #     exit(-1)
+    # else:
+    #     pass
