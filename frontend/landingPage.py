@@ -1,6 +1,7 @@
 # Kyle Maiorana
 # Streamlit Frontend
 
+from email import header
 import streamlit as st
 from PIL import Image
 import json
@@ -11,12 +12,15 @@ def load_json(filename):
               'r', encoding='utf-8') as f:
         return json.load(f)
 
+#title creation
+#st.markdown("<h1 style='text-align: center; color: white;'>2022 Midterm Election\nTwitter Opinion Visualizer</h1>", unsafe_allow_html=True)
+#st.markdown("<h5 style='text-align: center; color: white;'>Alex Perez, Fiona Powers, Kyle Maiorana, Liz Melo, Kayla Nieto, Kyle Betten</h5>", unsafe_allow_html=True)
+headerImage = Image.open(r'assets\electionwiz.png')
+st.image(headerImage)
+
+#style loading
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-#title creation
-st.markdown("<h1 style='text-align: center; color: white;'>2022 Midterm Election\nTwitter Opinion Visualizer</h1>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align: center; color: white;'>Alex Perez, Fiona Powers, Kyle Maiorana, Liz Melo, Kayla Nieto, Kyle Betten</h5>", unsafe_allow_html=True)
 
 #Radio selector for issue
 issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change']
@@ -70,6 +74,9 @@ st.markdown(markdownString, unsafe_allow_html=True)
 #Image column array
 candidateCol1, candidateCol2, candidateCol3 ,candidateCol4 = st.columns(4)
 stateIndex = listOfStateNames.index(state)
+with candidateCol1:
+    st.markdown("\n\n")
+    st.metric(label="Twitter Opinion", value="65%")
 with candidateCol2:
     demName = candidateInfo['states'][stateIndex]['democrat']
     demNameCleaned = demName.replace(" ", "").lower()
@@ -85,5 +92,9 @@ with candidateCol3:
     repPathString = 'assets\\candidates\\' + repNameCleaned + '.jpg'
     image = Image.open(repPathString)
     st.image(image, caption=repName)
+with candidateCol4:
+    st.markdown("\n\n")
+    st.metric(label="Twitter Opinion", value="35%")
+
 
 
