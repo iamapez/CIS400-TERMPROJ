@@ -7,6 +7,8 @@ import twitterapi
 import json
 from Candidate import Candidate
 from googlesearch import search
+import twitterAPIcredents
+import shutil
 
 
 class Constants:
@@ -25,70 +27,6 @@ class Constants:
     Healthcare = 'Healthcare'
     National_Security = 'National Security'
     Climate_Change = 'Climate Change'
-
-
-
-def refreshOurObjects():
-    """
-    When we want to refresh our objects
-    :return: list of refreshed Candidate objects
-    """
-    d = os.getcwd()
-    os.chdir('assets/CandidateData')
-    d = os.getcwd()
-
-    listOfObjects = list()
-    for filename in os.listdir(os.getcwd()):
-        f = os.path.join(os.getcwd(), filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            f = open(f)
-            data = json.load(f)
-            tempObject = Candidate(data['name'], data['state'], data['party'])
-            if len(data['tweets']) > 0:
-                tempObject.tweets = data['tweets']
-            if data['twitterusername'] is not None:
-                tempObject.twitterusername = data['twitterusername']
-
-            listOfObjects.append(tempObject)
-
-    return listOfObjects
-
-def updateCandidateJSON(localCandidate):
-    try:
-        d = os.getcwd()
-        os.chdir('assets/CandidateData')
-        d = os.getcwd()
-
-        localPATHName = localCandidate.name.replace(" ", "") + 'objDATA.json'
-        with open(localPATHName, 'w') as outfile:
-            outfile.write(localCandidate.toJSON())
-
-    except Exception as e:
-        print('Exception Thrown!', e)
-        return -1
-
-    return 1
-
-
-def outputCandidatesToJSON(CandidateObjects):
-    """
-    Generate Each Candidates json file in assets/CandidateData/<name>+objDATA.json
-    :return: -1 if exception caught, 1 if good
-    """
-    try:
-        d = os.getcwd()
-        os.chdir('assets/CandidateData')
-        d = os.getcwd()
-        for i in CandidateObjects:
-            localPATHName = i.name.replace(" ", "") + 'objDATA.json'
-            with open(localPATHName, 'w') as outfile:
-                outfile.write(i.toJSON())
-    except Exception as e:
-        print('Exception Thrown!', e)
-        return -1
-
-    return 1
 
 
 def populateDataFromJSON():
@@ -113,6 +51,22 @@ def populateDataFromJSON():
     return listOfObjects
 
 
+def getUserObjectsFromCandidateData():
+    pathToDataJSON = 'assets/CandidateData'
+    # iterate over files in
+    # that directory
+
+    os.chdir('../assets/CandidateData')
+
+    listOfUserObjects = list()
+    for filename in os.listdir(os.getcwd()):
+        dataFILE = open(filename)
+        UserAsDICT = json.load(dataFILE)
+        UserObject = Candidate(my_dict=UserAsDICT)
+        listOfUserObjects.append(UserObject)
+
+    return listOfUserObjects
+
 
 def main():
     """
@@ -120,34 +74,22 @@ def main():
     :return: exit code status
     """
 
-    # electionObjects = updateJSONData()            # only run this is we want to re initalize our data from the csv data file
+    apez_Authenticated = twitterapi.oauth_login(twitterAPIcredents.apez_consumerKey,
+                                                twitterAPIcredents.apez_consumerSecret,
+                                                twitterAPIcredents.apez_oauthtoken,
+                                                twitterAPIcredents.apez_oauthsecret)  # authenticate apez api key and store it here
+    kyleB_Authenticated = twitterapi.oauth_login(twitterAPIcredents.kyleB_consumerKey,
+                                                 twitterAPIcredents.kyleB_consumerSecret,
+                                                 twitterAPIcredents.kyleB_oauthtoken,
+                                                 twitterAPIcredents.kyleB_oauthsecret)
 
-    apez_Authenticated = twitterapi.getAuthenticated()  # authenticate apez api key and store it here
+    # CandidateObjects = populateDataFromJSON()
 
-    CandidateObjects = populateDataFromJSON()
+    # New method to get the users from the CandidateData folder
+    CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
 
-    while 1:
-        CandidateObjects = refreshOurObjects()
-
-
-    exit(1)
+    print()
 
 
 if __name__ == "__main__":
     main()
-
-
-
-    # only run when we need to update ALL candidate objects
-    # Generate our json files in assets/CandidateData/
-    # if outputCandidatesToJSON(CandidateObjects) == -1:
-    #     exit(-1)
-    # else:
-    #     pass
-
-    # when we made changes to one candidate data call:
-    #
-    # if updateCandidateJSON(CandidateObjects[0]) == -1:
-    #     exit(-1)
-    # else:
-    #     pass

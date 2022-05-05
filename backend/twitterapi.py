@@ -129,9 +129,8 @@ def getUserNameFromData(authed_api, name):
 
 
 def getAuthenticated():
-    apez = oauth_login(apez_consumerKey, apez_consumerSecret, apez_oauthtoken, apez_oauthsecret)
     # kyleM = oauth_login()
     # kyleB = oauth_login()
     # fiona = oauth_login()
     # kayla = oauth_login()
-    return apez
+    pass
