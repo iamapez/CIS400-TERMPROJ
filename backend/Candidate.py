@@ -27,7 +27,7 @@ class Candidate:
         self.ECONOMYscores = []
         self.CORONAscores = []
         self.HEALTHCAREscores = []
-        self.HEALTHCAREscores = []
+        self.NATSECURITYscores = []
         self.CLIMATEscores = []
         self.IMMIGRATIONscores = []
 
