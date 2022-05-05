@@ -9,24 +9,9 @@ from Candidate import Candidate
 from googlesearch import search
 import twitterAPIcredents
 import shutil
-
-
-class Constants:
-    Arizona = 'Arizona'
-    Georgia = 'Georgia'
-    Florida = 'Florida'
-    Nevada = 'Nevada'
-    Wisconsin = 'Wisconsin'
-    North_Carolina = 'North Carolina'
-    Pennsylvania = 'Pennsylvania'
-    Ohio = 'Ohio'
-    Democrat = 'Democrat'
-    Republican = 'Republican'
-    Economy = 'Economy'
-    Coronavirus = 'Coronavirus'
-    Healthcare = 'Healthcare'
-    National_Security = 'National Security'
-    Climate_Change = 'Climate Change'
+from Constants import *
+import threading
+import queue
 
 
 def populateDataFromJSON():
@@ -114,10 +99,35 @@ def main():
     # New method to get the users from the CandidateData folder
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
 
-    for i in CandidateDataFromExistingJSON:
-        if i.twitterusername == 'SenCortezMasto':
-            for x in i.CLIMATEtweets:
-                print(x)
+    tweets = list()
+    # tweets.append(twitterapi.getTweetsJSONByKeyword(apez_Authenticated, 'Biden'))
+
+    # apezThread = threading.Thread(target=twitterapi.getTweetsJSONByKeyword('Biden), args=('Biden',))
+
+    # assign Alex thread to CandidateDataFromExistingJSON to 0-2
+    # assign KyleM thread to CandidateDataFromExistingJSON to 3-5
+    # assign KyleB thread to CandidateDataFromExistingJSON to 6-8
+    # assign Liz thread to CandidateDataFromExistingJSON to 9-11
+    # assign Kayla thread to CandidateDataFromExistingJSON to 12-14
+    # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
+
+    alexTweets = list()
+    ALEXque = queue.Queue()
+    thr = threading.Thread(target=lambda q, arg: q.put((apez_Authenticated, 'Biden')), args=(ALEXque, 2))
+    thr.start()
+    thr.join()
+    while not ALEXque.empty():
+        temp = (ALEXque.get())
+        alexTweets.append(temp)
+
+    kyleTweets = list()
+    KYLEBque = queue.Queue()
+    thrKYLE = threading.Thread(target=lambda q, arg: q.put((apez_Authenticated, 'alex')), args=(KYLEBque, 2))
+    thrKYLE.start()
+    thrKYLE.join()
+    while not KYLEBque.empty():
+        temp = (KYLEBque.get())
+        kyleTweets.append(temp)
 
 
     print()
