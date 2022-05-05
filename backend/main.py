@@ -63,6 +63,32 @@ def getUserObjectsFromCandidateData():
         dataFILE = open(filename)
         UserAsDICT = json.load(dataFILE)
         UserObject = Candidate(my_dict=UserAsDICT)
+        UserObject.name = UserAsDICT['name']
+        UserObject.state = UserAsDICT['state']
+        UserObject.party = UserAsDICT['party']
+        UserObject.twitterusername = UserAsDICT['twitterusername']
+
+        UserObject.ECONOMYtweets = UserAsDICT['ECONOMYtweets']
+        UserObject.CORONAtweets = UserAsDICT['CORONAtweets']
+        UserObject.HEALTHCAREtweets = UserAsDICT['HEALTHCAREtweets']
+        UserObject.NATSECURITYtweets = UserAsDICT['NATSECURITYtweets']
+        UserObject.CLIMATEtweets = UserAsDICT['CLIMATEtweets']
+        UserObject.IMMIGRATIONtweets = UserAsDICT['IMMIGRATIONtweets']
+
+        UserObject.ECONOMYscores = UserAsDICT['ECONOMYscores']
+        UserObject.CORONAscores = UserAsDICT['CORONAscores']
+        UserObject.HEALTHCAREscores = UserAsDICT['HEALTHCAREscores']
+        UserObject.NATSECURITYscores = UserAsDICT['NATSECURITYscores']
+        UserObject.CLIMATEscores = UserAsDICT['CLIMATEscores']
+        UserObject.IMMIGRATIONscores = UserAsDICT['IMMIGRATIONscores']
+
+        UserObject.ECONOMYavg = UserAsDICT['ECONOMYavg']
+        UserObject.CORONAavg = UserAsDICT['CORONAavg']
+        UserObject.HEALTHCAREavg = UserAsDICT['HEALTHCAREavg']
+        UserObject.NATSECURITYavg = UserAsDICT['NATSECURITYavg']
+        UserObject.CLIMATEavg = UserAsDICT['CLIMATEavg']
+        UserObject.IMMIGRATIONavg = UserAsDICT['IMMIGRATIONavg']
+
         listOfUserObjects.append(UserObject)
 
     return listOfUserObjects
@@ -87,6 +113,12 @@ def main():
 
     # New method to get the users from the CandidateData folder
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
+
+    for i in CandidateDataFromExistingJSON:
+        if i.twitterusername == 'SenCortezMasto':
+            for x in i.CLIMATEtweets:
+                print(x)
+
 
     print()
 
