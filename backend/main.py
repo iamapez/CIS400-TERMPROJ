@@ -93,16 +93,13 @@ def main():
                                                  twitterAPIcredents.kyleB_consumerSecret,
                                                  twitterAPIcredents.kyleB_oauthtoken,
                                                  twitterAPIcredents.kyleB_oauthsecret)
-
-    # CandidateObjects = populateDataFromJSON()
+    liz_Authenticated = twitterapi.oauth_login(twitterAPIcredents.liz_consumerKey,
+                                               twitterAPIcredents.liz_consumerSecret,
+                                               twitterAPIcredents.liz_oauthtoken,
+                                               twitterAPIcredents.liz_oauthsecret)
 
     # New method to get the users from the CandidateData folder
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
-
-    tweets = list()
-    # tweets.append(twitterapi.getTweetsJSONByKeyword(apez_Authenticated, 'Biden'))
-
-    # apezThread = threading.Thread(target=twitterapi.getTweetsJSONByKeyword('Biden), args=('Biden',))
 
     # assign Alex thread to CandidateDataFromExistingJSON to 0-2
     # assign KyleM thread to CandidateDataFromExistingJSON to 3-5
@@ -111,26 +108,25 @@ def main():
     # assign Kayla thread to CandidateDataFromExistingJSON to 12-14
     # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
 
-    alexTweets = list()
-    ALEXque = queue.Queue()
-    thr = threading.Thread(target=lambda q, arg: q.put((apez_Authenticated, 'Biden')), args=(ALEXque, 2))
-    thr.start()
-    thr.join()
-    while not ALEXque.empty():
-        temp = (ALEXque.get())
-        alexTweets.append(temp)
+    for localCandidate in CandidateDataFromExistingJSON[0:3]:
+        response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
+        for tweetData in response:
+            if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
+                localCandidate.ECONOMYtweets.append(tweetData['text'])
 
-    kyleTweets = list()
-    KYLEBque = queue.Queue()
-    thrKYLE = threading.Thread(target=lambda q, arg: q.put((apez_Authenticated, 'alex')), args=(KYLEBque, 2))
-    thrKYLE.start()
-    thrKYLE.join()
-    while not KYLEBque.empty():
-        temp = (KYLEBque.get())
-        kyleTweets.append(temp)
+                # we want to run sentiment on tweetData['text']
+                # run sentiment analysis and append it to scores list of local candidate
+
+                print('Collected Tweets for Economy:', localCandidate.twitterusername)
+                # print the sentiment score to console
+
+                # export the new json data
 
 
-    print()
+
+
+
+
 
 
 if __name__ == "__main__":
