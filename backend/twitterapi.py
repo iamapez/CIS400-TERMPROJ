@@ -173,11 +173,10 @@ def twitter_search(twitter_api, q, max_results=200, **kw):
     return statuses
 
 def getTweetsJSONByKeyword(auth, keyword):
-    results = twitterapi.twitter_search(auth, keyword, max_results=10)
+    results = twitterapi.twitter_search(auth, keyword, max_results=100, lang='en')
 
     # Show one sample search result by slicing the list...
-    JSONversion = json.dumps(results[0], indent=1)
-    return JSONversion
+    return results
 
 def getAuthenticated():
     # kyleM = oauth_login()

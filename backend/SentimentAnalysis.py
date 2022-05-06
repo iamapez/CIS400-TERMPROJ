@@ -20,14 +20,13 @@ from nltk.tokenize import word_tokenize
 #    ssl._create_default_https_context = _create_unverified_https_context
 # nltk.download()
 
-def remove_noise(tweet_tokens, stop_words = ()):
-
+def remove_noise(tweet_tokens, stop_words=()):
     cleaned_tokens = []
 
     for token, tag in pos_tag(tweet_tokens):
-        token = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
-                       '(?:%[0-9a-fA-F][0-9a-fA-F]))+','', token)
-        token = re.sub("(@[A-Za-z0-9_]+)","", token)
+        token = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|' \
+                       '(?:%[0-9a-fA-F][0-9a-fA-F]))+', '', token)
+        token = re.sub("(@[A-Za-z0-9_]+)", "", token)
 
         if tag.startswith("NN"):
             pos = 'n'
@@ -43,14 +42,17 @@ def remove_noise(tweet_tokens, stop_words = ()):
             cleaned_tokens.append(token.lower())
     return cleaned_tokens
 
+
 def get_all_words(cleaned_tokens_list):
     for tokens in cleaned_tokens_list:
         for token in tokens:
             yield token
 
+
 def get_tweets_for_model(cleaned_tokens_list):
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)
+
 
 if __name__ == "__main__":
 
@@ -82,10 +84,10 @@ if __name__ == "__main__":
     negative_tokens_for_model = get_tweets_for_model(negative_cleaned_tokens_list)
 
     positive_dataset = [(tweet_dict, "Positive")
-                         for tweet_dict in positive_tokens_for_model]
+                        for tweet_dict in positive_tokens_for_model]
 
     negative_dataset = [(tweet_dict, "Negative")
-                         for tweet_dict in negative_tokens_for_model]
+                        for tweet_dict in negative_tokens_for_model]
 
     dataset = positive_dataset + negative_dataset
 
