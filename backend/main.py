@@ -7,88 +7,12 @@ import twitterapi
 import json
 from Candidate import Candidate
 from googlesearch import search
-
-
-class Constants:
-    Arizona = 'Arizona'
-    Georgia = 'Georgia'
-    Florida = 'Florida'
-    Nevada = 'Nevada'
-    Wisconsin = 'Wisconsin'
-    North_Carolina = 'North Carolina'
-    Pennsylvania = 'Pennsylvania'
-    Ohio = 'Ohio'
-    Democrat = 'Democrat'
-    Republican = 'Republican'
-    Economy = 'Economy'
-    Coronavirus = 'Coronavirus'
-    Healthcare = 'Healthcare'
-    National_Security = 'National Security'
-    Climate_Change = 'Climate Change'
-
-
-
-def refreshOurObjects():
-    """
-    When we want to refresh our objects
-    :return: list of refreshed Candidate objects
-    """
-    d = os.getcwd()
-    os.chdir('assets/CandidateData')
-    d = os.getcwd()
-
-    listOfObjects = list()
-    for filename in os.listdir(os.getcwd()):
-        f = os.path.join(os.getcwd(), filename)
-        # checking if it is a file
-        if os.path.isfile(f):
-            f = open(f)
-            data = json.load(f)
-            tempObject = Candidate(data['name'], data['state'], data['party'])
-            if len(data['tweets']) > 0:
-                tempObject.tweets = data['tweets']
-            if data['twitterusername'] is not None:
-                tempObject.twitterusername = data['twitterusername']
-
-            listOfObjects.append(tempObject)
-
-    return listOfObjects
-
-def updateCandidateJSON(localCandidate):
-    try:
-        d = os.getcwd()
-        os.chdir('assets/CandidateData')
-        d = os.getcwd()
-
-        localPATHName = localCandidate.name.replace(" ", "") + 'objDATA.json'
-        with open(localPATHName, 'w') as outfile:
-            outfile.write(localCandidate.toJSON())
-
-    except Exception as e:
-        print('Exception Thrown!', e)
-        return -1
-
-    return 1
-
-
-def outputCandidatesToJSON(CandidateObjects):
-    """
-    Generate Each Candidates json file in assets/CandidateData/<name>+objDATA.json
-    :return: -1 if exception caught, 1 if good
-    """
-    try:
-        d = os.getcwd()
-        os.chdir('assets/CandidateData')
-        d = os.getcwd()
-        for i in CandidateObjects:
-            localPATHName = i.name.replace(" ", "") + 'objDATA.json'
-            with open(localPATHName, 'w') as outfile:
-                outfile.write(i.toJSON())
-    except Exception as e:
-        print('Exception Thrown!', e)
-        return -1
-
-    return 1
+import twitterAPIcredents
+import shutil
+from Constants import *
+import threading
+import queue
+import SentimentAnalysis as SA
 
 
 def populateDataFromJSON():
@@ -113,6 +37,48 @@ def populateDataFromJSON():
     return listOfObjects
 
 
+def getUserObjectsFromCandidateData():
+    pathToDataJSON = 'assets/CandidateData'
+    # iterate over files in
+    # that directory
+
+    os.chdir('../assets/CandidateData')
+
+    listOfUserObjects = list()
+    for filename in os.listdir(os.getcwd()):
+        dataFILE = open(filename)
+        UserAsDICT = json.load(dataFILE)
+        UserObject = Candidate(my_dict=UserAsDICT)
+        UserObject.name = UserAsDICT['name']
+        UserObject.state = UserAsDICT['state']
+        UserObject.party = UserAsDICT['party']
+        UserObject.twitterusername = UserAsDICT['twitterusername']
+
+        UserObject.ECONOMYtweets = UserAsDICT['ECONOMYtweets']
+        UserObject.CORONAtweets = UserAsDICT['CORONAtweets']
+        UserObject.HEALTHCAREtweets = UserAsDICT['HEALTHCAREtweets']
+        UserObject.NATSECURITYtweets = UserAsDICT['NATSECURITYtweets']
+        UserObject.CLIMATEtweets = UserAsDICT['CLIMATEtweets']
+        UserObject.IMMIGRATIONtweets = UserAsDICT['IMMIGRATIONtweets']
+
+        UserObject.ECONOMYscores = UserAsDICT['ECONOMYscores']
+        UserObject.CORONAscores = UserAsDICT['CORONAscores']
+        UserObject.HEALTHCAREscores = UserAsDICT['HEALTHCAREscores']
+        UserObject.NATSECURITYscores = UserAsDICT['NATSECURITYscores']
+        UserObject.CLIMATEscores = UserAsDICT['CLIMATEscores']
+        UserObject.IMMIGRATIONscores = UserAsDICT['IMMIGRATIONscores']
+
+        UserObject.ECONOMYavg = UserAsDICT['ECONOMYavg']
+        UserObject.CORONAavg = UserAsDICT['CORONAavg']
+        UserObject.HEALTHCAREavg = UserAsDICT['HEALTHCAREavg']
+        UserObject.NATSECURITYavg = UserAsDICT['NATSECURITYavg']
+        UserObject.CLIMATEavg = UserAsDICT['CLIMATEavg']
+        UserObject.IMMIGRATIONavg = UserAsDICT['IMMIGRATIONavg']
+
+        listOfUserObjects.append(UserObject)
+
+    return listOfUserObjects
+
 
 def main():
     """
@@ -120,34 +86,100 @@ def main():
     :return: exit code status
     """
 
-    # electionObjects = updateJSONData()            # only run this is we want to re initalize our data from the csv data file
+    apez_Authenticated = twitterapi.oauth_login(twitterAPIcredents.apez_consumerKey,
+                                                twitterAPIcredents.apez_consumerSecret,
+                                                twitterAPIcredents.apez_oauthtoken,
+                                                twitterAPIcredents.apez_oauthsecret)  # authenticate apez api key and store it here
+    kyleB_Authenticated = twitterapi.oauth_login(twitterAPIcredents.kyleB_consumerKey,
+                                                 twitterAPIcredents.kyleB_consumerSecret,
+                                                 twitterAPIcredents.kyleB_oauthtoken,
+                                                 twitterAPIcredents.kyleB_oauthsecret)
+    liz_Authenticated = twitterapi.oauth_login(twitterAPIcredents.liz_consumerKey,
+                                               twitterAPIcredents.liz_consumerSecret,
+                                               twitterAPIcredents.liz_oauthtoken,
+                                               twitterAPIcredents.liz_oauthsecret)
 
-    apez_Authenticated = twitterapi.getAuthenticated()  # authenticate apez api key and store it here
+    # New method to get the users from the CandidateData folder
+    CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
+    localClassifier = SA.setup()
 
-    CandidateObjects = populateDataFromJSON()
+    # assign Alex thread to CandidateDataFromExistingJSON to 0-2
+    # assign KyleM thread to CandidateDataFromExistingJSON to 3-5
+    # assign KyleB thread to CandidateDataFromExistingJSON to 6-8
+    # assign Liz thread to CandidateDataFromExistingJSON to 9-11
+    # assign Kayla thread to CandidateDataFromExistingJSON to 12-14
+    # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
+    while True:
+        for localCandidate in CandidateDataFromExistingJSON[0:3]:
+            response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
+            for tweetData in response:
 
-    while 1:
-        CandidateObjects = refreshOurObjects()
+                if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
+                    localCandidate.ECONOMYtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.ECONOMYscores.append(1)
+                    else:
+                        localCandidate.ECONOMYscores.append(0)
+                    print()
 
+                if any(ext in tweetData['text'] for ext in Constants.CORONA_VIRUS_KEYWORDS):
+                    localCandidate.CORONAtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.CORONAscores.append(1)
+                    else:
+                        localCandidate.CORONAscores.append(0)
+                    print()
 
-    exit(1)
+                if any(ext in tweetData['text'] for ext in Constants.HEALTH_CARE_KEYWORDS):
+                    localCandidate.HEALTHCAREtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.HEALTHCAREscores.append(1)
+                    else:
+                        localCandidate.HEALTHCAREscores.append(0)
+                    print()
+
+                if any(ext in tweetData['text'] for ext in Constants.NATIONAL_SECURITY_KEYWORDS):
+                    localCandidate.ECONOMYtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.NATSECURITYscores.append(1)
+                    else:
+                        localCandidate.NATSECURITYscores.append(0)
+                    print()
+
+                if any(ext in tweetData['text'] for ext in Constants.CLIMATE_CHANGE_KEYWORDS):
+                    localCandidate.CORONAtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.CLIMATEscores.append(1)
+                    else:
+                        localCandidate.CLIMATEscores.append(0)
+                    print()
+
+                if any(ext in tweetData['text'] for ext in Constants.IMMIGRATION_KEYWORDS):
+                    localCandidate.HEALTHCAREtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.IMMIGRATIONscores.append(1)
+                    else:
+                        localCandidate.IMMIGRATIONscores.append(0)
+                    print()
 
 
 if __name__ == "__main__":
     main()
-
-
-
-    # only run when we need to update ALL candidate objects
-    # Generate our json files in assets/CandidateData/
-    # if outputCandidatesToJSON(CandidateObjects) == -1:
-    #     exit(-1)
-    # else:
-    #     pass
-
-    # when we made changes to one candidate data call:
-    #
-    # if updateCandidateJSON(CandidateObjects[0]) == -1:
-    #     exit(-1)
-    # else:
-    #     pass
