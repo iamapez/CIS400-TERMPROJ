@@ -12,7 +12,7 @@ apez_Authenticated = twitterapi.oauth_login(twitterAPIcredents.apez_consumerKey,
 
 # call our custom function, pass in a key word
 for Candidate in range(0,3):
-response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated,'Biden')
-for tweetData in response:
-    if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
-        print(tweetData['text'])
+    response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated,'Biden')
+    for tweetData in response:
+        if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
+            print(tweetData['text'])
