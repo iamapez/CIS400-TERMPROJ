@@ -12,6 +12,7 @@ import shutil
 from Constants import *
 import threading
 import queue
+import SentimentAnalysis as SA
 
 
 def populateDataFromJSON():
@@ -100,6 +101,7 @@ def main():
 
     # New method to get the users from the CandidateData folder
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
+    localClassifier = SA.setup()
 
     # assign Alex thread to CandidateDataFromExistingJSON to 0-2
     # assign KyleM thread to CandidateDataFromExistingJSON to 3-5
@@ -107,26 +109,76 @@ def main():
     # assign Liz thread to CandidateDataFromExistingJSON to 9-11
     # assign Kayla thread to CandidateDataFromExistingJSON to 12-14
     # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
+    while True:
+        for localCandidate in CandidateDataFromExistingJSON[0:3]:
+            response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
+            for tweetData in response:
 
-    for localCandidate in CandidateDataFromExistingJSON[0:3]:
-        response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
-        for tweetData in response:
-            if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
-                localCandidate.ECONOMYtweets.append(tweetData['text'])
+                if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
+                    localCandidate.ECONOMYtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.ECONOMYscores.append(1)
+                    else:
+                        localCandidate.ECONOMYscores.append(0)
+                    print()
 
-                # we want to run sentiment on tweetData['text']
-                # run sentiment analysis and append it to scores list of local candidate
+                if any(ext in tweetData['text'] for ext in Constants.CORONA_VIRUS_KEYWORDS):
+                    localCandidate.CORONAtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.CORONAscores.append(1)
+                    else:
+                        localCandidate.CORONAscores.append(0)
+                    print()
 
-                print('Collected Tweets for Economy:', localCandidate.twitterusername)
-                # print the sentiment score to console
+                if any(ext in tweetData['text'] for ext in Constants.HEALTH_CARE_KEYWORDS):
+                    localCandidate.HEALTHCAREtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.HEALTHCAREscores.append(1)
+                    else:
+                        localCandidate.HEALTHCAREscores.append(0)
+                    print()
 
-                # export the new json data
+                if any(ext in tweetData['text'] for ext in Constants.NATIONAL_SECURITY_KEYWORDS):
+                    localCandidate.ECONOMYtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.NATSECURITYscores.append(1)
+                    else:
+                        localCandidate.NATSECURITYscores.append(0)
+                    print()
 
+                if any(ext in tweetData['text'] for ext in Constants.CLIMATE_CHANGE_KEYWORDS):
+                    localCandidate.CORONAtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.CLIMATEscores.append(1)
+                    else:
+                        localCandidate.CLIMATEscores.append(0)
+                    print()
 
-
-
-
-
+                if any(ext in tweetData['text'] for ext in Constants.IMMIGRATION_KEYWORDS):
+                    localCandidate.HEALTHCAREtweets.append(tweetData['text'])
+                    localSentiment = -1
+                    print('Tweet:', tweetData['text'])
+                    print('Classification:', SA.getSentimentOnTweet(localClassifier, tweetData['text']))
+                    if SA.getSentimentOnTweet(localClassifier, tweetData['text']) == 'Positive':
+                        localCandidate.IMMIGRATIONscores.append(1)
+                    else:
+                        localCandidate.IMMIGRATIONscores.append(0)
+                    print()
 
 
 if __name__ == "__main__":
