@@ -8,7 +8,6 @@ from Constants import *
 import twitterapi
 import json
 
-
 from twitterAPIcredents import *
 import twitter
 
@@ -172,11 +171,13 @@ def twitter_search(twitter_api, q, max_results=200, **kw):
 
     return statuses
 
+
 def getTweetsJSONByKeyword(auth, keyword):
     results = twitterapi.twitter_search(auth, keyword, max_results=100, lang='en')
 
     # Show one sample search result by slicing the list...
     return results
+
 
 def getAuthenticated():
     # kyleM = oauth_login()
