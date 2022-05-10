@@ -6,6 +6,20 @@ import streamlit as st
 from PIL import Image
 import json
 from pathlib import Path
+import pickle
+import Candidate
+
+
+def getObjectsFromPickleDir():
+    listOfCandidateObjects = list()
+    tmp = os.getcwd()
+    os.chdir('assets/CandidateData')
+    for filename in os.listdir(os.getcwd()):
+        infile = open(filename, 'rb')
+        z = pickle.load(infile)
+        listOfCandidateObjects.append(z)
+
+    return listOfCandidateObjects
 
 
 # Loading from JSON to file function from cookbook
@@ -16,6 +30,8 @@ def load_json(filename):
 
 
 frontendBase = Path('../frontend')
+# objects are stored in the following list
+testListObjs = getObjectsFromPickleDir()
 
 with open('style.css') as f:
     st.markdown('<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -98,7 +114,6 @@ st.markdown(markdownString, unsafe_allow_html=True)
 # Image column array
 candidateCol1, candidateCol2, candidateCol3, candidateCol4 = st.columns(4)
 stateIndex = listOfStateNames.index(state)
-
 
 assetsCandidates = Path('assets/candidates')
 with candidateCol2:
