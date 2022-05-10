@@ -226,9 +226,8 @@ if __name__ == "__main__":
             pickle.dump(userObject, outfile)
             outfile.close()
 
-            infile = open(filename, 'rb')
-            z = pickle.load(infile)
-            print()
+            # write this to a json file now in CandidateDataJSON folder
+
 
 
         print()
