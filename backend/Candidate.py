@@ -1,4 +1,5 @@
 # Alexander C. Perez, acperez@syr.edu
+import collections
 import json
 from Constants import Constants
 
@@ -143,3 +144,8 @@ class Candidate:
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
+
+    def indices(lst, item):
+        return [i for i, x in enumerate(lst) if x == item]
+
+

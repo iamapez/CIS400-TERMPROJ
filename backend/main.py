@@ -121,75 +121,93 @@ def main():
             for tweetData in response:
                 if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.ECONOMYtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.ECONOMYscores.append(1)
+                    if localTweet in localCandidate.ECONOMYtweets:
+                        print('DUPLICATE!')
                     else:
-                        localCandidate.ECONOMYscores.append(0)
-                    print()
+                        localCandidate.ECONOMYtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.ECONOMYscores.append(1)
+                        else:
+                            localCandidate.ECONOMYscores.append(0)
+                        print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.CORONA_VIRUS_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.CORONAtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.CORONAscores.append(1)
+                    if localTweet in localCandidate.CORONAtweets:
+                        print('DUPLICATE!')
                     else:
-                        localCandidate.CORONAscores.append(0)
-                    print()
+                        localCandidate.CORONAtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.CORONAscores.append(1)
+                        else:
+                            localCandidate.CORONAscores.append(0)
+                        print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.HEALTH_CARE_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.HEALTHCAREtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.HEALTHCAREscores.append(1)
-                    elif localSentiment == 'Negative':
-                        localCandidate.HEALTHCAREscores.append(0)
-                    print()
+                    if localTweet in localCandidate.HEALTHCAREtweets:
+                        print('DUPLICATE!')
+                    else:
+                        localCandidate.HEALTHCAREtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.HEALTHCAREscores.append(1)
+                        elif localSentiment == 'Negative':
+                            localCandidate.HEALTHCAREscores.append(0)
+                        print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.NATIONAL_SECURITY_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.NATSECURITYtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.NATSECURITYscores.append(1)
+                    if localTweet in localCandidate.NATSECURITYtweets:
+                        print('DUPLICATE!')
                     else:
-                        localCandidate.NATSECURITYscores.append(0)
-                    print()
+                        localCandidate.NATSECURITYtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.NATSECURITYscores.append(1)
+                        else:
+                            localCandidate.NATSECURITYscores.append(0)
+                        print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.CLIMATE_CHANGE_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.CLIMATEtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.CLIMATEscores.append(1)
+                    if localTweet in localCandidate.CLIMATEtweets:
+                        print('DUPLICATE!')
                     else:
-                        localCandidate.CLIMATEscores.append(0)
-                    print()
+                        localCandidate.CLIMATEtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.CLIMATEscores.append(1)
+                        else:
+                            localCandidate.CLIMATEscores.append(0)
+                        print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.IMMIGRATION_KEYWORDS):
                     localTweet = tweetData['text']
-                    localCandidate.IMMIGRATIONtweets.append(localTweet)
-                    localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                    print('Tweet:', localTweet)
-                    print('Classification:', localSentiment)
-                    if localSentiment == 'Positive':
-                        localCandidate.IMMIGRATIONscores.append(1)
+                    if localTweet in localCandidate.IMMIGRATIONtweets:
+                        print('DUPLICATE!')
                     else:
-                        localCandidate.IMMIGRATIONscores.append(0)
-                    print()
+                        localCandidate.IMMIGRATIONtweets.append(localTweet)
+                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                        print('Tweet:', localTweet)
+                        print('Classification:', localSentiment)
+                        if localSentiment == 'Positive':
+                            localCandidate.IMMIGRATIONscores.append(1)
+                        else:
+                            localCandidate.IMMIGRATIONscores.append(0)
+                        print()
 
         time.sleep(60 * 10)  # wait 10 minutes before re-running
         print('Sleeping for{}'.format(60*10))
@@ -213,6 +231,7 @@ if __name__ == "__main__":
         # update the averages of each object
         for obj in CandidateDataFromExistingJSON:
             obj.setAverages()
+
 
         tmp = os.getcwd()
         os.chdir('../CandidateData')
