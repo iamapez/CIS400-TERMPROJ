@@ -31,19 +31,37 @@ class Candidate:
         self.CLIMATEscores = []
         self.IMMIGRATIONscores = []
 
-        self.ECONOMYavg = self.calculateavg(self.ECONOMYscores)
-        self.CORONAavg = self.calculateavg(self.CORONAscores)
-        self.HEALTHCAREavg = self.calculateavg(self.HEALTHCAREscores)
-        self.NATSECURITYavg = self.calculateavg(self.HEALTHCAREscores)
-        self.CLIMATEavg = self.calculateavg(self.CLIMATEscores)
-        self.IMMIGRATIONavg = self.calculateavg(self.IMMIGRATIONscores)
+        self.ECONOMYavg = []
+        self.CORONAavg = []
+        self.HEALTHCAREavg = []
+        self.NATSECURITYavg = []
+        self.CLIMATEavg = []
+        self.IMMIGRATIONavg = []
 
-    def calculateavg(self, listofscores):
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
+    def Average(self, lst):
         try:
-            val = sum(listofscores) / len(listofscores)
-        except ZeroDivisionError as e:
+            return sum(lst) / len(lst)
+        except ZeroDivisionError:
             return 0
-        return val
+
+    def setAverages(self):
+        # set economy
+        self.ECONOMYavg = self.Average(self.ECONOMYscores)
+        # set corona
+        self.CORONAavg = self.Average(self.CORONAscores)
+        # set healthcare
+        self.HEALTHCAREavg = self.Average(self.HEALTHCAREscores)
+        # natsecurity
+        self.NATSECURITYavg = self.Average(self.NATSECURITYscores)
+        # climate
+        self.CLIMATEavg = self.Average(self.CLIMATEscores)
+        # immigration
+        self.IMMIGRATIONavg = self.Average(self.IMMIGRATIONscores)
+
 
     def addTweetToCategory(self, category, tweet):
         if category == Constants.CORONA_VIRUS:
