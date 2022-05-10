@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Alexander C. Perez, acperez@syr.edu
 import json
 import Constants
@@ -144,10 +143,6 @@ class Candidate:
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
-=======
-# Alexander C. Perez, acperez@syr.edu
-import json
-import backend.Constants
 
 
 class Candidate:
