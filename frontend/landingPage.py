@@ -1,6 +1,7 @@
 # Kyle Maiorana
 # Streamlit Frontend
 
+from cgi import test
 from email import header
 import streamlit as st
 from PIL import Image
@@ -37,16 +38,24 @@ st.image(headerImage)
 
 frontendBase = Path('../frontend')
 # objects are stored in the following list
-testListObjs = getObjectsFromPickleDir()
 
 
 #style loading
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+testListObjs = getObjectsFromPickleDir()
+for candidate in testListObjs:
+    print(candidate.CORONAavg)
+for candidate in testListObjs:
+    print(candidate.CORONAtweets)
+os.chdir('../../frontend/')
+
 st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: underline;'>Make your Data Selections</h3>", unsafe_allow_html=True)    #Radio selector for issue
 issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change']
 issue = st.selectbox("Please select a divisive issue from the dropdown list:", issueOptions)
 #st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}text-align: center;</style>', unsafe_allow_html=True)
+print("This is cwd " , os.getcwd())
 
 #Image column array
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -98,6 +107,8 @@ stateIndex = listOfStateNames.index(state)
 list1 = [10.2, 12.0, 53.7, 74.1, 25.7, 46.4, 10.8, 20.9, 34.5, 82.1, 39.4, 18.0]
 valueNumber = round(random.choice(list1),1)
 secondVal = round((100-valueNumber), 1)
+
+
 with candidateCol1:
     st.markdown("\n\n")
     valString = str(valueNumber)+ "%"
@@ -122,5 +133,5 @@ with candidateCol4:
     valString2 = str(secondVal)+ "%"
     st.metric(label="Twitter Opinion", value=valString2)
 
-
+st.markdown("<h2 style='text-align: center; color: white;'>Sample Tweets</h4>", unsafe_allow_html=True)
 
