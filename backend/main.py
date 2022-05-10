@@ -15,7 +15,6 @@ import queue
 import SentimentAnalysis as SA
 import time
 import pickle
-import pickle2json
 
 global CandidateDataFromExistingJSON
 
@@ -193,10 +192,7 @@ def main():
                     print()
 
         time.sleep(60 * 10)  # wait 10 minutes before re-running
-
-
-
-        break
+        print('Sleeping for{}'.format(60*10))
 
 
 def getUserFromFirstFour(str):
@@ -233,10 +229,3 @@ if __name__ == "__main__":
         print()
         # export objects to json
 
-# to load files from pickel run
-# os.chdir('../CandidateData')
-#         for filename in os.listdir(os.getcwd()):
-# infile = open(filename, 'rb')
-#             z = pickle.load(infile)
-#             print()
-#

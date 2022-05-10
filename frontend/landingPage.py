@@ -12,25 +12,22 @@ import random
 from pathlib import Path
 import pickle
 import Candidate
-import os
+
 
 def getObjectsFromPickleDir():
     listOfCandidateObjects = list()
     tmp = os.getcwd()
-    print(tmp)
-    os.chdir('../assets/CandidateData')
+    os.chdir('assets/CandidateData')
     for filename in os.listdir(os.getcwd()):
         infile = open(filename, 'rb')
         z = pickle.load(infile)
         listOfCandidateObjects.append(z)
 
     return listOfCandidateObjects
+import pickle
+import Candidate
+import os
 
-#Loading from JSON to file function from cookbook
-def load_json(filename):
-    with open('{0}.json'.format(filename), 
-              'r', encoding='utf-8') as f:
-        return json.load(f)
 
 #title creation
 #st.markdown("<h1 style='text-align: center; color: white;'>2022 Midterm Election\nTwitter Opinion Visualizer</h1>", unsafe_allow_html=True)
@@ -39,6 +36,8 @@ headerImage = Image.open(r'assets\electionwiz.png')
 st.image(headerImage)
 
 frontendBase = Path('../frontend')
+# objects are stored in the following list
+testListObjs = getObjectsFromPickleDir()
 # objects are stored in the following list
 
 
@@ -57,7 +56,7 @@ st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: u
 issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change']
 issue = st.selectbox("Please select a divisive issue from the dropdown list:", issueOptions)
 #st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}text-align: center;</style>', unsafe_allow_html=True)
-print("This is cwd " , os.getcwd())
+# print("This is cwd " , os.getcwd())
 
 #Image column array
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -115,6 +114,7 @@ with candidateCol1:
     st.markdown("\n\n")
     valString = str(valueNumber)+ "%"
     st.metric(label="Twitter Opinion", value=valString)
+assetsCandidates = Path('assets/candidates')
 with candidateCol2:
     demName = candidateInfo['states'][stateIndex]['democrat']
     demNameCleaned = demName.replace(" ", "").lower()
