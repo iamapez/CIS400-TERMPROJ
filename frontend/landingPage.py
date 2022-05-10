@@ -12,22 +12,28 @@ import random
 from pathlib import Path
 import pickle
 import Candidate
+import os
 
+# Loading from JSON to file function from cookbook
+def load_json(filename):
+    with open('{0}.json'.format(filename),
+              'r', encoding='utf-8') as f:
+        return json.load(f)
+        
+#style loading
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def getObjectsFromPickleDir():
     listOfCandidateObjects = list()
     tmp = os.getcwd()
-    os.chdir('assets/CandidateData')
+    os.chdir('../assets/CandidateData')
     for filename in os.listdir(os.getcwd()):
         infile = open(filename, 'rb')
         z = pickle.load(infile)
         listOfCandidateObjects.append(z)
 
     return listOfCandidateObjects
-import pickle
-import Candidate
-import os
-
 
 #title creation
 #st.markdown("<h1 style='text-align: center; color: white;'>2022 Midterm Election\nTwitter Opinion Visualizer</h1>", unsafe_allow_html=True)
@@ -36,15 +42,8 @@ headerImage = Image.open(r'assets\electionwiz.png')
 st.image(headerImage)
 
 frontendBase = Path('../frontend')
+
 # objects are stored in the following list
-testListObjs = getObjectsFromPickleDir()
-# objects are stored in the following list
-
-
-#style loading
-with open('style.css') as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
 testListObjs = getObjectsFromPickleDir()
 for candidate in testListObjs:
     print(candidate.CORONAavg)
