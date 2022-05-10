@@ -13,7 +13,11 @@ from Constants import *
 import threading
 import queue
 import SentimentAnalysis as SA
+import time
+import pickle
+import pickle2json
 
+global CandidateDataFromExistingJSON
 
 def populateDataFromJSON():
     pathToDataJSON = 'assets/CLEANED_DATA.json'
@@ -42,7 +46,7 @@ def getUserObjectsFromCandidateData():
     # iterate over files in
     # that directory
 
-    os.chdir('../assets/CandidateData')
+    os.chdir('../assets/Persistance')
 
     listOfUserObjects = list()
     for filename in os.listdir(os.getcwd()):
@@ -102,6 +106,7 @@ def main():
                                                twitterAPIcredents.liz_oauthsecret)
 
     # New method to get the users from the CandidateData folder
+    global CandidateDataFromExistingJSON
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
     localClassifier = SA.setup()
 
@@ -112,7 +117,7 @@ def main():
     # assign Kayla thread to CandidateDataFromExistingJSON to 12-14
     # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
     while True:
-        for localCandidate in CandidateDataFromExistingJSON[0:3]:
+        for localCandidate in CandidateDataFromExistingJSON:
             response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
             for tweetData in response:
                 if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
@@ -187,10 +192,52 @@ def main():
                         localCandidate.IMMIGRATIONscores.append(0)
                     print()
 
+        time.sleep(60 * 10)  # wait 10 minutes before re-running
+
 
 
         break
 
 
+def getUserFromFirstFour(str):
+    global CandidateDataFromExistingJSON
+    for i in CandidateDataFromExistingJSON:
+        if str == i.name.replace(" ", "").strip()[0:5]:
+            return i
+
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()  # enter the main loop
+    except KeyboardInterrupt:
+        # catch when the program tries to exit
+        # print('Interrupted')
+        global CandidateDataFromExistingJSON
+
+        # update the averages of each object
+        for obj in CandidateDataFromExistingJSON:
+            obj.setAverages()
+
+        tmp = os.getcwd()
+        os.chdir('../CandidateData')
+        for filename in os.listdir(os.getcwd()):
+            userObject = getUserFromFirstFour(filename[0:5])
+            outfile = open(filename, 'wb')
+            pickle.dump(userObject, outfile)
+            outfile.close()
+
+            infile = open(filename, 'rb')
+            z = pickle.load(infile)
+            print()
+
+
+        print()
+        # export objects to json
+
+# to load files from pickel run
+# os.chdir('../CandidateData')
+#         for filename in os.listdir(os.getcwd()):
+# infile = open(filename, 'rb')
+#             z = pickle.load(infile)
+#             print()
+#
