@@ -52,18 +52,23 @@ for candidate in testListObjs:
 os.chdir('../../frontend/')
 
 st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: underline;'>Make your Data Selections</h3>", unsafe_allow_html=True)    #Radio selector for issue
-issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change']
+issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change', 'Immigration']
 issue = st.selectbox("Please select a divisive issue from the dropdown list:", issueOptions)
 #st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}text-align: center;</style>', unsafe_allow_html=True)
 # print("This is cwd " , os.getcwd())
 
 #Image column array
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3= st.columns(3)
 with col1:
     if issue == "Economy":
         image = Image.open(r'assets\issues\economy.jpeg')
     else:
         image = Image.open(r'assets\issues\economyblur.jpeg')
+    st.image(image)
+    if issue == "National Security":
+        image = Image.open(r'assets\issues\national-security.jpg')
+    else:
+        image = Image.open(r'assets\issues\national-securityblur.jpg')
     st.image(image)
 with col2:
     if issue == "Coronavirus":
@@ -71,24 +76,23 @@ with col2:
     else:
         image = Image.open(r'assets\issues\covidblur.jpg')
     st.image(image)
+    if issue == "Climate Change":
+        image = Image.open(r'assets\issues\climate-change.jpg')
+    else:
+        image = Image.open(r'assets\issues\climate-changeblur.jpg')
+    st.image(image)
 with col3:
     if issue == "Healthcare":
         image = Image.open(r'assets\issues\healthcare.jpg')
     else:
         image = Image.open(r'assets\issues\healthcareblur.jpg')
     st.image(image)
-with col4:
-    if issue == "National Security":
-        image = Image.open(r'assets\issues\national-security.jpg')
+    if issue == "Immigration":
+        image = Image.open(r'assets\issues\immigration.jpg')
     else:
-        image = Image.open(r'assets\issues\national-securityblur.jpg')
+        image = Image.open(r'assets\issues\immigrationblur.jpg')
     st.image(image)
-with col5:
-    if issue == "Climate Change":
-        image = Image.open(r'assets\issues\climate-change.jpg')
-    else:
-        image = Image.open(r'assets\issues\climate-changeblur.jpg')
-    st.image(image)
+
 
 #Radio selector for state/race
 candidateInfo = load_json("CLEANED_DATA")
@@ -99,6 +103,20 @@ for state in candidateInfo['states']:
 state = st.selectbox("Please select a Senate race to investigate:", listOfStateNames)
 markdownString = "<h4 style='text-align: center; color: white;'>You are comparing the issue of " + str(issue).lower() + " between candidates in the " + str(state) + " Senate race.</h4>"
 st.markdown(markdownString, unsafe_allow_html=True)
+
+issueCleaned = ""
+if issue == 'Economy':
+    issueCleaned = "ECONOMY"
+elif issue == 'Coronavirus':
+    issueCleaned = "CORONA"
+elif issue == 'Healthcare':
+    issueCleaned = "HEALTHCARE"
+elif issue == 'National Security':
+    issueCleaned = "NATSECURITY"
+elif issue == 'Climate Change':
+    issueCleaned = "CLIMATE"
+elif issue == 'Immigration':
+    issueCleaned = "IMMIGRATION"
 
 #Candidate Profiles
 #Image column array
@@ -118,20 +136,21 @@ repPercent = 0
 demPercent = 0
 repTweet = ""
 demTweet = ""
-
+tweetCall = issueCleaned + "tweets"
+avgCall = issueCleaned + "avg"
 for candidate in testListObjs:
     if(candidate.name == repName):
         try:
-            repTweet = random.choice(candidate.CORONAtweets)
+            repTweet = random.choice(getattr(candidate, tweetCall))
         except:
             repTweet = "No Tweet Found"
-        repPercent = round(candidate.CORONAavg, 1)
+        repPercent = round(getattr(candidate, avgCall), 1)
     if(candidate.name == demName):
         try:
-            demTweet = random.choice(candidate.CORONAtweets)
+            demTweet = random.choice(getattr(candidate, tweetCall))
         except:
             demTweet = "No Tweet Found"
-        demPercent = round(candidate.CORONAavg, 1)
+        demPercent = round(getattr(candidate, avgCall), 1)
 
 #If there isn't data for one candidate, and the other does, make equal
 if(repPercent == 0 and demPercent != 0):
@@ -160,8 +179,8 @@ with candidateCol4:
     valString2 = str(100*round(repPercent,1))+ "%"
     st.metric(label="Twitter Opinion", value=valString2)
 
-st.markdown("<h2 style='text-align: center; color: white;text-decoration-line: underline;'>Sample Tweets</h4>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; color: white;'>Democrat</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: white;'>Sample tweet examples from the mined Twitter dataset:</h4>", unsafe_allow_html=True)
+st.markdown("<h5 style='text-align: center; color: white;text-decoration-line: underline;'>Democrat</h4>", unsafe_allow_html=True)
 st.text(demTweet)
-st.markdown("<h4 style='text-align: center; color: white;'>Republican</h4>", unsafe_allow_html=True)
+st.markdown("<h5 style='text-align: center; color: white;text-decoration-line: underline;'>Republican</h4>", unsafe_allow_html=True)
 st.text(repTweet)
