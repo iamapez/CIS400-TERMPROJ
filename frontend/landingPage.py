@@ -6,6 +6,22 @@ import streamlit as st
 from PIL import Image
 import json
 import random
+from pathlib import Path
+import pickle
+import Candidate
+import os
+
+def getObjectsFromPickleDir():
+    listOfCandidateObjects = list()
+    tmp = os.getcwd()
+    print(tmp)
+    os.chdir('../assets/CandidateData')
+    for filename in os.listdir(os.getcwd()):
+        infile = open(filename, 'rb')
+        z = pickle.load(infile)
+        listOfCandidateObjects.append(z)
+
+    return listOfCandidateObjects
 
 #Loading from JSON to file function from cookbook
 def load_json(filename):
@@ -18,6 +34,11 @@ def load_json(filename):
 #st.markdown("<h5 style='text-align: center; color: white;'>Alex Perez, Fiona Powers, Kyle Maiorana, Liz Melo, Kayla Nieto, Kyle Betten</h5>", unsafe_allow_html=True)
 headerImage = Image.open(r'assets\electionwiz.png')
 st.image(headerImage)
+
+frontendBase = Path('../frontend')
+# objects are stored in the following list
+testListObjs = getObjectsFromPickleDir()
+
 
 #style loading
 with open('style.css') as f:
