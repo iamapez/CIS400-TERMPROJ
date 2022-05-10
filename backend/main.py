@@ -18,6 +18,7 @@ import pickle
 
 global CandidateDataFromExistingJSON
 
+
 def populateDataFromJSON():
     pathToDataJSON = 'assets/CLEANED_DATA.json'
     d = os.getcwd()  # change directories to access the json file containing the data
@@ -117,16 +118,23 @@ def main():
     # assign Fiona thread to CandidateDataFromExistingJSON to 15-16
     while True:
         for localCandidate in CandidateDataFromExistingJSON:
-            response = twitterapi.getTweetsJSONByKeyword(apez_Authenticated, localCandidate.twitterusername)
+            response = twitterapi.getTweetsJSONByKeyword(liz_Authenticated, localCandidate.twitterusername)
             for tweetData in response:
                 if any(ext in tweetData['text'] for ext in Constants.ECONOMY_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.ECONOMYtweets:
-                        print('DUPLICATE!')
-                    else:
+                    print('checking', localTweet)
+                    isdup = False
+                    for i in localCandidate.ECONOMYtweets:
+                        first23tweet = localTweet[:-23]
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                    if not isdup:
+                        print('added to{}{}'.format(localCandidate.name, Constants.ECONOMY))
                         localCandidate.ECONOMYtweets.append(localTweet)
                         localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                        print('Tweet:', localTweet)
                         print('Classification:', localSentiment)
                         if localSentiment == 'Positive':
                             localCandidate.ECONOMYscores.append(1)
@@ -136,12 +144,19 @@ def main():
 
                 elif any(ext in tweetData['text'] for ext in Constants.CORONA_VIRUS_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.CORONAtweets:
-                        print('DUPLICATE!')
-                    else:
+                    print('checking', localTweet)
+                    first23tweet = localTweet[:-23]
+                    isdup = False
+                    for i in localCandidate.CORONAtweets:
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                    if not isdup:
+                        print('added to{}{}'.format(localCandidate.name, Constants.CORONA_VIRUS))
                         localCandidate.CORONAtweets.append(localTweet)
                         localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                        print('Tweet:', localTweet)
                         print('Classification:', localSentiment)
                         if localSentiment == 'Positive':
                             localCandidate.CORONAscores.append(1)
@@ -151,12 +166,19 @@ def main():
 
                 elif any(ext in tweetData['text'] for ext in Constants.HEALTH_CARE_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.HEALTHCAREtweets:
-                        print('DUPLICATE!')
-                    else:
+                    print('checking', localTweet)
+                    first23tweet = localTweet[:-23]
+                    isdup = False
+                    for i in localCandidate.HEALTHCAREtweets:
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                    if not isdup:
+                        print('added to{}{}'.format(localCandidate.name, Constants.HEALTH_CARE))
                         localCandidate.HEALTHCAREtweets.append(localTweet)
                         localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                        print('Tweet:', localTweet)
                         print('Classification:', localSentiment)
                         if localSentiment == 'Positive':
                             localCandidate.HEALTHCAREscores.append(1)
@@ -166,27 +188,41 @@ def main():
 
                 elif any(ext in tweetData['text'] for ext in Constants.NATIONAL_SECURITY_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.NATSECURITYtweets:
-                        print('DUPLICATE!')
-                    else:
-                        localCandidate.NATSECURITYtweets.append(localTweet)
-                        localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                        print('Tweet:', localTweet)
-                        print('Classification:', localSentiment)
-                        if localSentiment == 'Positive':
-                            localCandidate.NATSECURITYscores.append(1)
-                        else:
-                            localCandidate.NATSECURITYscores.append(0)
-                        print()
+                    print('checking', localTweet)
+                    first23tweet = localTweet[:-23]
+                    isdup = False
+                    for i in localCandidate.NATSECURITYtweets:
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                        if not isdup:
+                            print('added to{}{}'.format(localCandidate.name, Constants.NATIONAL_SECURITY))
+                            localCandidate.NATSECURITYtweets.append(localTweet)
+                            localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
+                            print('Classification:', localSentiment)
+                            if localSentiment == 'Positive':
+                                localCandidate.NATSECURITYscores.append(1)
+                            else:
+                                localCandidate.NATSECURITYscores.append(0)
+                            print()
 
                 elif any(ext in tweetData['text'] for ext in Constants.CLIMATE_CHANGE_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.CLIMATEtweets:
-                        print('DUPLICATE!')
-                    else:
+                    print('checking', localTweet)
+                    first23tweet = localTweet[:-23]
+                    isdup = False
+                    for i in localCandidate.CLIMATEtweets:
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                    if not isdup:
+                        print('added to{}{}'.format(localCandidate.name, Constants.CLIMATE_CHANGE))
                         localCandidate.CLIMATEtweets.append(localTweet)
                         localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
-                        print('Tweet:', localTweet)
                         print('Classification:', localSentiment)
                         if localSentiment == 'Positive':
                             localCandidate.CLIMATEscores.append(1)
@@ -196,9 +232,17 @@ def main():
 
                 elif any(ext in tweetData['text'] for ext in Constants.IMMIGRATION_KEYWORDS):
                     localTweet = tweetData['text']
-                    if localTweet in localCandidate.IMMIGRATIONtweets:
-                        print('DUPLICATE!')
-                    else:
+                    print('checking', localTweet)
+                    first23tweet = localTweet[:-23]
+                    isdup = False
+                    for i in localCandidate.IMMIGRATIONtweets:
+                        verifyString = i[:-23]
+                        if localTweet[:-23] == i[:-23]:
+                            print('DUPLICATE!!')
+                            isdup = True
+                            break
+                    if not isdup:
+                        print('added to{}{}'.format(localCandidate.name, Constants.IMMIGRATION))
                         localCandidate.IMMIGRATIONtweets.append(localTweet)
                         localSentiment = SA.getSentimentOnTweet(localClassifier, localTweet)
                         print('Tweet:', localTweet)
@@ -209,8 +253,8 @@ def main():
                             localCandidate.IMMIGRATIONscores.append(0)
                         print()
 
+        print('Sleeping for{}'.format(60 * 10))
         time.sleep(60 * 10)  # wait 10 minutes before re-running
-        print('Sleeping for{}'.format(60*10))
 
 
 def getUserFromFirstFour(str):
@@ -232,7 +276,6 @@ if __name__ == "__main__":
         for obj in CandidateDataFromExistingJSON:
             obj.setAverages()
 
-
         tmp = os.getcwd()
         os.chdir('../CandidateData')
         for filename in os.listdir(os.getcwd()):
@@ -242,9 +285,6 @@ if __name__ == "__main__":
             outfile.close()
 
             # write this to a json file now in CandidateDataJSON folder
-
-
-
         print()
+        exit(1)
         # export objects to json
-
