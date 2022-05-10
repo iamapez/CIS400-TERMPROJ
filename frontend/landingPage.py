@@ -19,7 +19,7 @@ def load_json(filename):
     with open('{0}.json'.format(filename),
               'r', encoding='utf-8') as f:
         return json.load(f)
-        
+
 #style loading
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -108,15 +108,43 @@ list1 = [10.2, 12.0, 53.7, 74.1, 25.7, 46.4, 10.8, 20.9, 34.5, 82.1, 39.4, 18.0]
 valueNumber = round(random.choice(list1),1)
 secondVal = round((100-valueNumber), 1)
 
+#Cleaning candidate names for comparison and resource locating
+demName = candidateInfo['states'][stateIndex]['democrat']
+demNameCleaned = demName.replace(" ", "").lower()
+repName = candidateInfo['states'][stateIndex]['republican']
+repNameCleaned = repName.replace(" ", "").lower()
+
+repPercent = 0
+demPercent = 0
+repTweet = ""
+demTweet = ""
+
+for candidate in testListObjs:
+    if(candidate.name == repName):
+        try:
+            repTweet = random.choice(candidate.CORONAtweets)
+        except:
+            repTweet = "No Tweet Found"
+        repPercent = round(candidate.CORONAavg, 1)
+    if(candidate.name == demName):
+        try:
+            demTweet = random.choice(candidate.CORONAtweets)
+        except:
+            demTweet = "No Tweet Found"
+        demPercent = round(candidate.CORONAavg, 1)
+
+#If there isn't data for one candidate, and the other does, make equal
+if(repPercent == 0 and demPercent != 0):
+    repPercent = 1-demPercent
+if(repPercent != 0 and demPercent == 0):
+    demPercent = 1-repPercent
 
 with candidateCol1:
     st.markdown("\n\n")
-    valString = str(valueNumber)+ "%"
+    valString = str(100*round(demPercent,1))+ "%"
     st.metric(label="Twitter Opinion", value=valString)
 assetsCandidates = Path('assets/candidates')
 with candidateCol2:
-    demName = candidateInfo['states'][stateIndex]['democrat']
-    demNameCleaned = demName.replace(" ", "").lower()
     demPathString = 'assets\\candidates\\' + demNameCleaned + '.jpg'
     st.markdown("<h4 style='text-align: center; color: white;text-decoration-line: underline;'>Democrat</h4>", unsafe_allow_html=True)
     image = Image.open(demPathString)
@@ -124,15 +152,16 @@ with candidateCol2:
 
 with candidateCol3:
     st.markdown("<h4 style='text-align: center; color: white;text-decoration-line: underline;'>Republican</h4>", unsafe_allow_html=True)
-    repName = candidateInfo['states'][stateIndex]['republican']
-    repNameCleaned = repName.replace(" ", "").lower()
     repPathString = 'assets\\candidates\\' + repNameCleaned + '.jpg'
     image = Image.open(repPathString)
     st.image(image, caption=repName)
 with candidateCol4:
     st.markdown("\n\n")
-    valString2 = str(secondVal)+ "%"
+    valString2 = str(100*round(repPercent,1))+ "%"
     st.metric(label="Twitter Opinion", value=valString2)
 
-st.markdown("<h2 style='text-align: center; color: white;'>Sample Tweets</h4>", unsafe_allow_html=True)
-
+st.markdown("<h2 style='text-align: center; color: white;text-decoration-line: underline;'>Sample Tweets</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: white;'>Democrat</h4>", unsafe_allow_html=True)
+st.text(demTweet)
+st.markdown("<h4 style='text-align: center; color: white;'>Republican</h4>", unsafe_allow_html=True)
+st.text(repTweet)
