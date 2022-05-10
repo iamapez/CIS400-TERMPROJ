@@ -5,6 +5,7 @@ from email import header
 import streamlit as st
 from PIL import Image
 import json
+import random
 
 #Loading from JSON to file function from cookbook
 def load_json(filename):
@@ -21,8 +22,7 @@ st.image(headerImage)
 #style loading
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-#Radio selector for issue
+st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: underline;'>Make your Data Selections</h3>", unsafe_allow_html=True)    #Radio selector for issue
 issueOptions = ['Economy', 'Coronavirus', 'Healthcare', 'National Security', 'Climate Change']
 issue = st.selectbox("Please select a divisive issue from the dropdown list:", issueOptions)
 #st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}text-align: center;</style>', unsafe_allow_html=True)
@@ -74,9 +74,13 @@ st.markdown(markdownString, unsafe_allow_html=True)
 #Image column array
 candidateCol1, candidateCol2, candidateCol3 ,candidateCol4 = st.columns(4)
 stateIndex = listOfStateNames.index(state)
+list1 = [10.2, 12.0, 53.7, 74.1, 25.7, 46.4, 10.8, 20.9, 34.5, 82.1, 39.4, 18.0]
+valueNumber = round(random.choice(list1),1)
+secondVal = round((100-valueNumber), 1)
 with candidateCol1:
     st.markdown("\n\n")
-    st.metric(label="Twitter Opinion", value="65%")
+    valString = str(valueNumber)+ "%"
+    st.metric(label="Twitter Opinion", value=valString)
 with candidateCol2:
     demName = candidateInfo['states'][stateIndex]['democrat']
     demNameCleaned = demName.replace(" ", "").lower()
@@ -94,7 +98,8 @@ with candidateCol3:
     st.image(image, caption=repName)
 with candidateCol4:
     st.markdown("\n\n")
-    st.metric(label="Twitter Opinion", value="35%")
+    valString2 = str(secondVal)+ "%"
+    st.metric(label="Twitter Opinion", value=valString2)
 
 
 
