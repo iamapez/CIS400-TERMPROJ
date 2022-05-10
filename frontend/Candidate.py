@@ -290,4 +290,3 @@ class Candidate:
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
->>>>>>> 0f36cb1 (ready to display data to frontend)
