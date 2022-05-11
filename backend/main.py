@@ -532,13 +532,124 @@ def updateObjectsPresetData(obj):
         mandeltweetsCoronavirus.extend(['https://twitter.com/ThatLawyerJeff/status/1521569538889854976', 'https://twitter.com/Roberti06733390/status/1521280096799268865'])
         mandeltweetsEconomy.append('https://twitter.com/HotlineJosh/status/1521846813233401856')
 
-    cands = [kelly,ryan,madel,mccormick,fetterman,budd,beasley,johnson, barnes, brown, masto, rubio,demings, walker, warnock, bronvich]
+    cands = [kelly, ryan, madel, mccormick, fetterman, budd, beasley, johnson, barnes, brown, masto, rubio, demings,
+             walker, warnock, bronvich]
 
-    for cand in cands:
-        for topics in cand:
-            if topics[:-7] == Constants.ECONOMY:
-                print('in economy')
-                print('append here')
+    global CandidateDataFromExistingJSON
+    for i in CandidateDataFromExistingJSON:
+        if i.name == 'Mark Kelly':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Mark Bronvich':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Raphael Warnock':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Herschel Walker':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Val Demings':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Marco Rubio':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Catherine Cortez Masto':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Sam Brown':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Mandela Barnes':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Ron Johnson':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Cheri Beasley':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Ted Budd':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'John Fetterman':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'David Mccormick':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Tim Ryan':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+        elif i.name == 'Josh Mandel':
+            i.ECONOMYtweets.extend(cands[0][0])
+            i.CORONAtweets.extend(cands[0][1])
+            i.HEALTHCAREtweets.extend(cands[0][2])
+            i.NATSECURITYtweets.extend(cands[0][3])
+            i.CLIMATEtweets.extend(cands[0][4])
+            i.IMMIGRATIONtweets.extend(cands[0][5])
+    return
 
 if __name__ == "__main__":
     try:
@@ -551,7 +662,6 @@ if __name__ == "__main__":
         # update the averages of each object
         for obj in CandidateDataFromExistingJSON:
             obj.setAverages()
-            updateObjectsPresetData(obj)
 
         tmp = os.getcwd()
         os.chdir('../CandidateData')
