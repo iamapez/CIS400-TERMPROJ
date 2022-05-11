@@ -157,6 +157,7 @@ if(repPercent == 0 and demPercent != 0):
     repPercent = 1-demPercent
 elif(repPercent != 0 and demPercent == 0):
     demPercent = 1-repPercent
+st.markdown("<h5 style='text-align: center; color: white;'>(These values are calculated by determining the positivity (0-100) of the collected tweets for a candidate on an issue)</h4>", unsafe_allow_html=True)
 
 #display columns for candidate information
 with candidateCol1:
@@ -182,16 +183,17 @@ with candidateCol4:
 
 #displaying tweet information
 st.markdown("<h4 style='text-align: center; color: white;'>Sample tweet examples from the mined Twitter dataset:</h4>", unsafe_allow_html=True)
+
 with st.expander("Democrats"):
     if len(demTweet) != 0:
-        for tweet in demTweet:
+        for tweet in demTweet[:5]:
             st.text(tweet)
     else:
         st.text("\nNo Tweets at this time.")
         
 with st.expander("Republicans"):
     if len(repTweet) != 0:
-        for tweet in repTweet:
+        for tweet in repTweet[:5]:
             st.text(tweet)
     else:
         st.text("\nNo Tweets at this time.")
