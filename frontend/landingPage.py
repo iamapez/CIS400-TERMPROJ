@@ -45,10 +45,7 @@ frontendBase = Path('../frontend')
 
 # objects are stored in the following list
 testListObjs = getObjectsFromPickleDir()
-for candidate in testListObjs:
-    print(candidate.CORONAavg)
-for candidate in testListObjs:
-    print(candidate.CORONAtweets)
+
 os.chdir('../../frontend/')
 
 st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: underline;'>Make your Data Selections</h3>", unsafe_allow_html=True)    #Radio selector for issue
@@ -104,6 +101,8 @@ state = st.selectbox("Please select a Senate race to investigate:", listOfStateN
 markdownString = "<h4 style='text-align: center; color: white;'>You are comparing the issue of " + str(issue).lower() + " between candidates in the " + str(state) + " Senate race.</h4>"
 st.markdown(markdownString, unsafe_allow_html=True)
 
+# it is neccessary to clean up the names of the issues
+# because the dropdown names don't match the database
 issueCleaned = ""
 if issue == 'Economy':
     issueCleaned = "ECONOMY"
@@ -141,13 +140,13 @@ avgCall = issueCleaned + "avg"
 for candidate in testListObjs:
     if(candidate.name == repName):
         try:
-            repTweet = random.choice(getattr(candidate, tweetCall))
+            repTweet = getattr(candidate, tweetCall)
         except:
             repTweet = "No Tweet Found"
         repPercent = round(getattr(candidate, avgCall), 1)
     if(candidate.name == demName):
         try:
-            demTweet = random.choice(getattr(candidate, tweetCall))
+            demTweet = getattr(candidate, tweetCall)
         except:
             demTweet = "No Tweet Found"
         demPercent = round(getattr(candidate, avgCall), 1)
@@ -180,7 +179,9 @@ with candidateCol4:
     st.metric(label="Twitter Opinion", value=valString2)
 
 st.markdown("<h4 style='text-align: center; color: white;'>Sample tweet examples from the mined Twitter dataset:</h4>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align: center; color: white;text-decoration-line: underline;'>Democrat</h4>", unsafe_allow_html=True)
-st.text(demTweet)
-st.markdown("<h5 style='text-align: center; color: white;text-decoration-line: underline;'>Republican</h4>", unsafe_allow_html=True)
-st.text(repTweet)
+with st.expander("Democrats"):
+    for tweet in demTweet:
+        st.text(tweet)
+with st.expander("Republicans"):
+    for tweet in repTweet:
+        st.text(tweet)
