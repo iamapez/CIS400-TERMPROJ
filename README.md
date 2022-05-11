@@ -16,9 +16,9 @@ git clone https://github.com/iamapez/CIS400-TERMPROJ.git
 ```
 ## Local instructions
 ```
-Download the CIS400-TERMPROJ folder from the zipped deliverables
+Download the CIS400-TERMPROJ-integration folder from the zipped deliverables
 Navigate to the project environment and run:
-cd CIS400-TERMPROJ
+cd CIS400-TERMPROJ-integration
 pip install -r requirements.txt
 ```
 
@@ -38,7 +38,7 @@ ssh into EC2 instance
 ```
 ssh -i Downloads/sshkey.pem ec2-user@44.197.133.174
 sudo yum update
-cd CIS400-TERMPROJ/
+cd CIS400-TERMPROJ-integration/
 git pull
 ```
 
