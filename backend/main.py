@@ -253,8 +253,9 @@ def main():
                             localCandidate.IMMIGRATIONscores.append(0)
                         print()
 
-        print('Sleeping for{}'.format(60 * 10))
-        time.sleep(60 * 10)  # wait 10 minutes before re-running
+        time_wait = 60 * 5
+        print('Sleeping for{}'.format(time_wait))
+        time.sleep(time_wait)  # wait 10 minutes before re-running
 
 
 def getUserFromFirstFour(str):
