@@ -24,6 +24,7 @@ def load_json(filename):
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+#pickle function to retrieve from data to py object
 def getObjectsFromPickleDir():
     listOfCandidateObjects = list()
     tmp = os.getcwd()
@@ -36,8 +37,6 @@ def getObjectsFromPickleDir():
     return listOfCandidateObjects
 
 #title creation
-#st.markdown("<h1 style='text-align: center; color: white;'>2022 Midterm Election\nTwitter Opinion Visualizer</h1>", unsafe_allow_html=True)
-#st.markdown("<h5 style='text-align: center; color: white;'>Alex Perez, Fiona Powers, Kyle Maiorana, Liz Melo, Kayla Nieto, Kyle Betten</h5>", unsafe_allow_html=True)
 headerImage = Image.open(r'assets\electionwiz.png')
 st.image(headerImage)
 
@@ -46,6 +45,7 @@ frontendBase = Path('../frontend')
 # objects are stored in the following list
 testListObjs = getObjectsFromPickleDir()
 
+#need to switch directory
 os.chdir('../../frontend/')
 
 st.markdown("<h3 style='text-align: center; color: white;text-decoration-line: underline;'>Make your Data Selections</h3>", unsafe_allow_html=True)    #Radio selector for issue
@@ -54,7 +54,7 @@ issue = st.selectbox("Please select a divisive issue from the dropdown list:", i
 #st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}text-align: center;</style>', unsafe_allow_html=True)
 # print("This is cwd " , os.getcwd())
 
-#Image column array
+#Image column array for images of issues
 col1, col2, col3= st.columns(3)
 with col1:
     if issue == "Economy":
@@ -131,6 +131,7 @@ demNameCleaned = demName.replace(" ", "").lower()
 repName = candidateInfo['states'][stateIndex]['republican']
 repNameCleaned = repName.replace(" ", "").lower()
 
+#capturing the percentages and tweets of the selected races
 repPercent = 0.0
 demPercent = 0.0
 repTweet = ""
@@ -157,6 +158,7 @@ if(repPercent == 0 and demPercent != 0):
 elif(repPercent != 0 and demPercent == 0):
     demPercent = 1-repPercent
 
+#display columns for candidate information
 with candidateCol1:
     st.markdown("\n\n")
     valString = str(100*round(demPercent,1))+ "%"
@@ -178,6 +180,7 @@ with candidateCol4:
     valString2 = str(100*round(repPercent,1))+ "%"
     st.metric(label="Twitter Opinion", value=valString2)
 
+#displaying tweet information
 st.markdown("<h4 style='text-align: center; color: white;'>Sample tweet examples from the mined Twitter dataset:</h4>", unsafe_allow_html=True)
 with st.expander("Democrats"):
     if len(demTweet) != 0:

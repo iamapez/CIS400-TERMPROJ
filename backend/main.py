@@ -40,7 +40,7 @@ def populateDataFromJSON():
     print('here')
     return listOfObjects
 
-
+#retrieving a user object from data of candidate
 def getUserObjectsFromCandidateData():
     pathToDataJSON = 'assets/CandidateData'
     # iterate over files in
