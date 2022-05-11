@@ -108,6 +108,8 @@ def main():
     # New method to get the users from the CandidateData folder
     global CandidateDataFromExistingJSON
     CandidateDataFromExistingJSON = getUserObjectsFromCandidateData()
+    for i in CandidateDataFromExistingJSON:
+        updateObjectsPresetData(i)
     localClassifier = SA.setup()
 
     # assign Alex thread to CandidateDataFromExistingJSON to 0-2
@@ -265,6 +267,266 @@ def getUserFromFirstFour(str):
             return i
 
 
+def updateObjectsPresetData(obj):
+    bronvichtweetsEconomy = []
+    bronvichtweetsCoronavirus = []
+    bronvichtweetsHealthcare = []
+    bronvichtweetsNational = []
+    bronvichtweetsClimate = []
+    bronvichtweetsImmigration = []
+    kellytweetsEconomy = []
+    kellytweetsCoronavirus = []
+    kellytweetsHealthcare = []
+    kellytweetsNational = []
+    kellytweetsClimate = []
+    kellytweetsImmigration = []
+    warnocktweetsEconomy = []
+    warnocktweetsCoronavirus = []
+    warnocktweetsHealthcare = []
+    warnocktweetsNational = []
+    warnocktweetsClimate = []
+    warnocktweetsImmigration = []
+    warnock = [warnocktweetsImmigration, warnocktweetsClimate, warnocktweetsNational, warnocktweetsHealthcare,
+               warnocktweetsCoronavirus, warnocktweetsEconomy]
+    kelly = [kellytweetsEconomy, kellytweetsCoronavirus, kellytweetsHealthcare, kellytweetsNational, kellytweetsClimate,
+             kellytweetsImmigration]
+    bronvich = [bronvichtweetsEconomy, bronvichtweetsImmigration, bronvichtweetsClimate, bronvichtweetsNational,
+                bronvichtweetsHealthcare, bronvichtweetsCoronavirus]
+    walkertweetsEconomy = []
+    walkertweetsCoronavirus = []
+    walkertweetsHealthcare = []
+    walkertweetsNational = []
+    walkertweetsClimate = []
+    walkertweetsImmigration = []
+    walker = [walkertweetsImmigration, walkertweetsClimate, walkertweetsNational, walkertweetsHealthcare,
+              walkertweetsCoronavirus, walkertweetsEconomy]
+    demingstweetsEconomy = []
+    demingstweetsCoronavirus = []
+    demingstweetsHealthcare = []
+    demingstweetsNational = []
+    demingstweetsClimate = []
+    demingstweetsImmigration = []
+    demings = [demingstweetsImmigration, demingstweetsClimate, demingstweetsNational, demingstweetsEconomy,
+               demingstweetsHealthcare, demingstweetsCoronavirus]
+    rubiotweetsEconomy = []
+    rubiotweetsCoronavirus = []
+    rubiotweetsHealthcare = []
+    rubiotweetsNational = []
+    rubiotweetsClimate = []
+    rubiotweetsImmigration = []
+    rubio = [rubiotweetsImmigration, rubiotweetsClimate, rubiotweetsNational, rubiotweetsHealthcare,
+             rubiotweetsCoronavirus, rubiotweetsEconomy]
+    mastotweetsEconomy = []
+    mastotweetsCoronavirus = []
+    mastotweetsHealthcare = []
+    mastotweetsNational = []
+    mastotweetsClimate = []
+    mastotweetsImmigration = []
+    masto = [mastotweetsImmigration, mastotweetsClimate, mastotweetsNational, mastotweetsHealthcare,
+             mastotweetsCoronavirus, mastotweetsEconomy]
+    browntweetsEconomy = []
+    browntweetsCoronavirus = []
+    browntweetsHealthcare = []
+    browntweetNationals = []
+    browntweetsClimate = []
+    browntweetsImmigration = []
+    brown = [browntweetsImmigration, browntweetsClimate, browntweetsHealthcare, browntweetsCoronavirus,
+             browntweetsEconomy, browntweetNationals]
+    barnestweetsEconomy = []
+    barnestweetsCoronavirus = []
+    barnestweetsHealthcare = []
+    barnestweetsNational = []
+    barnestweetsClimate = []
+    barnestweetsImmigration = []
+    barnes = [barnestweetsImmigration, barnestweetsClimate, barnestweetsNational, barnestweetsHealthcare,
+              barnestweetsCoronavirus, barnestweetsEconomy]
+    johnsontweetsEconomy = []
+    johnsontweetsCoronavirus = []
+    johnsontweetsHealthcare = []
+    johnsontweetsNational = []
+    johnsontweetsClimate = []
+    johnsontweetsImmigration = []
+    johnson = [johnsontweetsImmigration, johnsontweetsClimate, johnsontweetsNational, johnsontweetsHealthcare,
+               johnsontweetsCoronavirus, johnsontweetsEconomy]
+    beasleytweetsEconomy = []
+    beasleytweetsCoronavirus = []
+    beasleytweetsHealthcare = []
+    beasleytweetsNational = []
+    beasleytweetsClimate = []
+    beasleytweetsImmigration = []
+    beasley = [beasleytweetsNational, beasleytweetsImmigration, beasleytweetsClimate, beasleytweetsHealthcare,
+               beasleytweetsCoronavirus, beasleytweetsEconomy]
+    buddtweetsEconomy = []
+    buddtweetsCoronavirus = []
+    buddtweetsHealthcare = []
+    buddtweetsNational = []
+    buddtweetsClimate = []
+    buddtweetsImmigration = []
+    budd = [buddtweetsImmigration, buddtweetsClimate, buddtweetsNational, buddtweetsHealthcare, buddtweetsCoronavirus,
+            buddtweetsEconomy]
+    fettermantweetsEconomy = []
+    fettermantweetsCoronavirus = []
+    fettermantweetsHealthcare = []
+    fettermantweetsNational = []
+    fettermantweetsClimate = []
+    fettermantweetsImmigration = []
+    fetterman = [fettermantweetsImmigration, fettermantweetsClimate, fettermantweetsNational, fettermantweetsHealthcare,
+                 fettermantweetsCoronavirus, fettermantweetsEconomy]
+    mccormicktweetsEconomy = []
+    mccormicktweetsCoronavirus = []
+    mccormicktweetsHealthcare = []
+    mccormicktweetsNational = []
+    mccormicktweetsClimate = []
+    mccormicktweetsImmigration = []
+    mccormick = [mccormicktweetsImmigration, mccormicktweetsClimate, mccormicktweetsNational, mccormicktweetsHealthcare,
+                 mccormicktweetsCoronavirus, mccormicktweetsEconomy]
+    mandeltweetsEconomy = []
+    mandeltweetsCoronavirus = []
+    mandeltweetsHealthcare = []
+    mandeltweetsNational = []
+    mandeltweetsClimate = []
+    mandeltweetsImmigration = []
+    madel = [mandeltweetsImmigration, mandeltweetsClimate, mandeltweetsNational, mandeltweetsEconomy,
+             mandeltweetsHealthcare, mandeltweetsCoronavirus, mandeltweetsImmigration]
+    ryantweetsEconomy = []
+    ryantweetsCoronavirus = []
+    ryantweetsHealthcare = []
+    ryantweetsNational = []
+    ryantweetsClimate = []
+    ryantweetsImmigration = []
+    ryan = [ryantweetsImmigration, ryantweetsClimate, ryantweetsNational, ryantweetsHealthcare, ryantweetsCoronavirus,
+            ryantweetsEconomy, ryantweetsImmigration]
+
+    if obj.name == 'Mark Kelly':
+        kellytweetsEconomy.append('https://twitter.com/CaptMarkKelly/status/1519722592503881733')
+        kellytweetsEconomy.append('https://twitter.com/favour8854/status/1519003784919232514')
+        kellytweetsCoronavirus.append('')
+        kellytweetsCoronavirus.append('')
+        kellytweetsHealthcare.append()
+        kellytweetsNational.append()
+        kellytweetsClimate.append()
+        kellytweetsImmigration.append()
+
+    elif obj.name == 'Mark Bronvich':
+        bronvichtweetsImmigration.append()
+        bronvichtweetsClimate.append()
+        bronvichtweetsNational.append()
+        bronvichtweetsHealthcare.append()
+        bronvichtweetsCoronavirus.append()
+        bronvichtweetsEconomy.append()
+    elif obj.name == 'Raphael Warnock':
+        warnocktweetsImmigration.append()
+        warnocktweetsClimate.append()
+        warnocktweetsNational.append()
+        warnocktweetsHealthcare.append()
+        warnocktweetsCoronavirus.append()
+        warnocktweetsEconomy.append()
+    elif obj.name == 'Herschel Walker':
+        walkertweetsImmigration.append()
+        walkertweetsClimate.append()
+        walkertweetsNational.append()
+        walkertweetsHealthcare.append()
+        walkertweetsCoronavirus.append()
+        walkertweetsEconomy.append()
+    elif obj.name == 'Val Demings':
+        demingstweetsImmigration.append()
+        demingstweetsClimate.append()
+        demingstweetsNational.append()
+        demingstweetsHealthcare.append()
+        demingstweetsCoronavirus.append()
+        demingstweetsEconomy.append()
+    elif obj.name == 'Marco Rubio':
+        rubiotweetsImmigration.append()
+        rubiotweetsClimate.append()
+        rubiotweetsNational.append()
+        rubiotweetsHealthcare.append()
+        rubiotweetsCoronavirus.append()
+        rubiotweetsEconomy.append()
+    elif obj.name == 'Catherine Cortez Masto':
+        mastotweetsImmigration.append()
+        mastotweetsClimate.append()
+        mastotweetsNational.append()
+        mastotweetsHealthcare.append()
+        mastotweetsCoronavirus.append()
+        mastotweetsEconomy.append()
+    elif obj.name == 'Sam Brown':
+        browntweetsImmigration.append()
+        browntweetsClimate.append()
+        browntweetsNational.append()
+        browntweetsHealthcare.append()
+        browntweetsCoronavirus.append()
+        browntweetsEconomy.append()
+    elif obj.name == 'Mandela Barnes':
+        barnestweetsImmigration.append()
+        barnestweetsClimate.append()
+        barnestweetsNational.append()
+        barnestweetsHealthcare.append()
+        barnestweetsCoronavirus.append()
+        barnestweetsEconomy.append()
+    elif obj.name == 'Ron Johnson':
+        johnsontweetsImmigration.append()
+        johnsontweetsClimate.append()
+        johnsontweetsNational.append()
+        johnsontweetsHealthcare.append()
+        johnsontweetsCoronavirus.append()
+        johnsontweetsEconomy.append()
+    elif obj.name == 'Cheri Beasley':
+        beasleytweetsImmigration.append()
+        beasleytweetsClimate.append()
+        beasleytweetsNational.append()
+        beasleytweetsHealthcare.append()
+        beasleytweetsCoronavirus.append()
+        beasleytweetsEconomy.append()
+    elif obj.name == 'Ted Budd':
+        buddtweetsImmigration.append()
+        buddtweetsClimate.append()
+        buddtweetsNational.append()
+        buddtweetsHealthcare.append()
+        buddtweetsCoronavirus.append()
+        buddtweetsEconomy.append()
+    elif obj.name == 'John Fetterman':
+        fettermantweetsImmigration.append()
+        fettermantweetsClimate.append()
+        fettermantweetsNational.append()
+        fettermantweetsHealthcare.append()
+        fettermantweetsCoronavirus.append()
+        fettermantweetsEconomy.append()
+    elif obj.name == 'David Mccormick':
+        mccormicktweetsImmigration.append()
+        mccormicktweetsClimate.append()
+        mccormicktweetsNational.append()
+        mccormicktweetsHealthcare.append()
+        mccormicktweetsCoronavirus.append()
+        mccormicktweetsEconomy.append()
+    elif obj.name == 'Tim Ryan':
+        ryantweetsImmigration.append()
+        ryantweetsClimate.append()
+        ryantweetsNational.append()
+        ryantweetsHealthcare.append()
+        ryantweetsCoronavirus.append()
+        ryantweetsEconomy.append()
+    elif obj.name == 'Josh Mandel':
+        mandeltweetsImmigration.append()
+        mandeltweetsClimate.append()
+        mandeltweetsNational.append()
+        mandeltweetsHealthcare.append()
+        mandeltweetsCoronavirus.append()
+        mandeltweetsEconomy.append()
+
+    cands = [kelly,ryan,madel,mccormick,fetterman,budd,beasley,johnson, barnes, brown, masto, rubio,demings, walker, warnock, bronvich]
+
+    for cand in cands:
+        for topics in cand:
+            if topics[:-7] == Constants.ECONOMY:
+                print('in economy')
+                print('append here')
+
+
+
+
+
+
+
 if __name__ == "__main__":
     try:
         main()  # enter the main loop
@@ -276,6 +538,7 @@ if __name__ == "__main__":
         # update the averages of each object
         for obj in CandidateDataFromExistingJSON:
             obj.setAverages()
+            updateObjectsPresetData(obj)
 
         tmp = os.getcwd()
         os.chdir('../CandidateData')
