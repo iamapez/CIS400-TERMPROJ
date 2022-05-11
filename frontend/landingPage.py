@@ -131,8 +131,8 @@ demNameCleaned = demName.replace(" ", "").lower()
 repName = candidateInfo['states'][stateIndex]['republican']
 repNameCleaned = repName.replace(" ", "").lower()
 
-repPercent = 0
-demPercent = 0
+repPercent = 0.0
+demPercent = 0.0
 repTweet = ""
 demTweet = ""
 tweetCall = issueCleaned + "tweets"
@@ -154,7 +154,7 @@ for candidate in testListObjs:
 #If there isn't data for one candidate, and the other does, make equal
 if(repPercent == 0 and demPercent != 0):
     repPercent = 1-demPercent
-if(repPercent != 0 and demPercent == 0):
+elif(repPercent != 0 and demPercent == 0):
     demPercent = 1-repPercent
 
 with candidateCol1:
@@ -180,8 +180,15 @@ with candidateCol4:
 
 st.markdown("<h4 style='text-align: center; color: white;'>Sample tweet examples from the mined Twitter dataset:</h4>", unsafe_allow_html=True)
 with st.expander("Democrats"):
-    for tweet in demTweet:
-        st.text(tweet)
+    if len(demTweet) != 0:
+        for tweet in demTweet:
+            st.text(tweet)
+    else:
+        st.text("\nNo Tweets at this time.")
+        
 with st.expander("Republicans"):
-    for tweet in repTweet:
-        st.text(tweet)
+    if len(repTweet) != 0:
+        for tweet in repTweet:
+            st.text(tweet)
+    else:
+        st.text("\nNo Tweets at this time.")
