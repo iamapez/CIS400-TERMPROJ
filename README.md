@@ -4,7 +4,7 @@
 Access: http://44.197.133.174:8501
 
 
-## ----------------- TA or Professor use the following instruction to get this running -----------------
+## TA or Professor use the following instruction to get this running 
 
 
 ## Setting up Project Environment locally
@@ -15,11 +15,11 @@ Clone the Repo locally:
 git clone https://github.com/iamapez/CIS400-TERMPROJ.git
 ```
 ## Local instructions
+```
 Download the CIS400-TERMPROJ folder from the zipped deliverables
 Navigate to the project environment and run:
 cd CIS400-TERMPROJ
 pip install -r requirements.txt
-```
 ```
 ## To get your local front end running
 cd into your frontend directory using
