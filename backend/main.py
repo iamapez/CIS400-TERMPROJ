@@ -266,6 +266,23 @@ def getUserFromFirstFour(str):
         if str == i.name.replace(" ", "").strip()[0:5]:
             return i
 
+def getSentimentPresent(listofurls):
+    # takes in a url and gets tweet id
+    # lookup tweet id get text
+    # return avg
+    tweets = []
+    sentimentValues = []
+    sentimentAvg = 0
+    for url in listofurls:
+        pass
+        tweet = twitterapi.show_status(id=id_of_tweet)
+        print(tweet['text'])
+        # sentiment on tweet
+        # append sentiment to list
+
+    # return average of list
+
+    return tweets, sentimentAvg
 
 def updateObjectsPresetData(obj):
     bronvichtweetsEconomy = []
@@ -538,7 +555,11 @@ def updateObjectsPresetData(obj):
     global CandidateDataFromExistingJSON
     for i in CandidateDataFromExistingJSON:
         if i.name == 'Mark Kelly':
-            i.ECONOMYtweets.extend(cands[0][0])
+            tweets = []
+            tweets, sentiment = getSentimentPresent(cands[0][0])
+            i.ECONOMYtweets.extend(tweets)
+            i.ECONOMYavg = sentiment
+
             i.CORONAtweets.extend(cands[0][1])
             i.HEALTHCAREtweets.extend(cands[0][2])
             i.NATSECURITYtweets.extend(cands[0][3])
